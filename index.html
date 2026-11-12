@@ -430,8 +430,19 @@ const monthEnd = mo => addDays(addDays(mo + '-01', 32).slice(0, 8) + '01', -1);
 /* ---------- live fetchers: one month per call ---------- */
 const RDR = 'https://california-rdr.prod.cali.rd12.recreation-management.tylerapp.com/rdr/';
 const EXCL = /group|hike|bike|cabin|equest|boat|management|day use|overflow|yurt|lodg/i;
+/* Requests to the same website are spaced by a random 200–600 ms gap (about 2–3 per second per site).
+   Different websites (Recreation.gov, ReserveCalifornia, Campflare) run side by side. */
+const GAP_MIN = 200, GAP_MAX = 600, nextSlot = {};
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function throttle(host) {
+  const now = Date.now(), at = Math.max(now, nextSlot[host] || 0);
+  nextSlot[host] = at + GAP_MIN + Math.random() * (GAP_MAX - GAP_MIN);
+  if (at > now) await sleep(at - now);
+}
 async function jget(u, opt, tries = 3) {
+  const host = new URL(u).host;
   for (let a = 1; ; a++) {
+    await throttle(host);
     try { const r = await fetch(u, opt); if (r.ok) return r; if (a >= tries || (r.status < 429 && r.status !== 408)) throw new Error('HTTP ' + r.status); }
     catch (e) { if (a >= tries) throw e; }
     await new Promise(res => setTimeout(res, 700 * a));
@@ -496,7 +507,7 @@ async function ensure(fromISO, toISO, mode) {
   if (!jobs.length) return 0;
   let done = 0; jobs.forEach(j => pending.add(j[2]));
   setStatus('busy', `Fetching ${jobs.length} campground-months… 0/${jobs.length}`);
-  await pool(jobs, 4, async ([it, mo, key]) => {
+  await pool(jobs, 8, async ([it, mo, key]) => {
     try { await fetchMonth(it, mo); FAILED.delete(it.k); } catch (e) { FAILED.add(it.k); }
     pending.delete(key); done++;
     setStatus('busy', `Fetching ${jobs.length} campground-months… ${done}/${jobs.length}`);
@@ -532,9 +543,8 @@ function minStayText(it, c) {
   const parts = [];
   if (c && c.minStay > 1) parts.push(`Min stay ${c.minStay} nights for this check-in`);
   const r = RGR[it.k];
-  if (r && r.minWeekendStay && [5, 6].includes(dow(IN))) parts.push(`Weekend min stay ${r.minWeekendStay[0]} nights${r.minWeekendStay[1] === 'soft' ? ' (soft rule, may relax near the date)' : ''}`);
-  if (r && r.minHolidayWeekendStay) parts.push(`Holiday weekends: min ${r.minHolidayWeekendStay[0]} nights`);
-  if (!parts.length && it.live) parts.push('Min stay 1 night');
+  if (r && r.minWeekendStay && r.minWeekendStay[0] >= 2 && [5, 6].includes(dow(IN))) parts.push(`Weekend min stay ${r.minWeekendStay[0]} nights${r.minWeekendStay[1] === 'soft' ? ' (soft rule, may relax near the date)' : ''}`);
+  if (r && r.minHolidayWeekendStay && r.minHolidayWeekendStay[0] >= 2) parts.push(`Holiday weekends: min ${r.minHolidayWeekendStay[0]} nights`);
   return parts.join(' · ');
 }
 
@@ -621,7 +631,7 @@ function card(it) {
       <div><b>${it.gm[0]}★</b><span>Google</span></div>
     </div>
     <div class="facts">${rat.join('')}</div>
-    ${it.live || RGR[it.k] ? `<div class="bk">🌙 ${minStayText(it, c)}</div>` : ''}
+    ${minStayText(it, c) ? `<div class="bk">🌙 ${minStayText(it, c)}</div>` : ''}
     <div class="am">${amen}</div>
     <details class="more"><summary>Why go${it.warn ? ' · notes' : ''}</summary><ul class="good">${it.good.map(g => `<li>${g}</li>`).join('')}</ul>${it.gmnote ? `<div class="bk">${it.gmnote}</div>` : ''}${it.warn ? `<div class="warn">${it.warn}</div>` : ''}</details>
     <div class="lk"><a class="book" href="${it.book}" target="_blank" rel="noopener">Book</a><a href="${gmap}" target="_blank" rel="noopener">Maps</a>${it.dyrt_url ? `<a href="${it.dyrt_url}" target="_blank" rel="noopener">Dyrt</a>` : ''}${reels}<a class="ig" href="https://www.instagram.com/explore/search/keyword/?q=${encodeURIComponent(it.ig)}" target="_blank" rel="noopener">IG search</a><button data-map="${it.k}">Map</button></div>
@@ -652,7 +662,7 @@ function renderGrid(list) {
       const ms = c.minStay > 1 ? `<sup>${c.minStay}n</sup>` : '';
       return `<td class="${cls}" style="--r:${(0.18 + 0.82 * r).toFixed(2)}" data-cell="${it.k}|${d}" title="${it.name}: ${fmtDate(d)}, ${n} night${n > 1 ? 's' : ''} · ${a} open of ${c.total}${c.fcfs ? ' · ' + c.fcfs + ' walk-up' : ''}${c.minStay > 1 ? ' · min stay ' + c.minStay : ''}">${label}${ms}</td>`;
     }).join('');
-    return `<tr class="${ii === 'nope' ? 'nope' : ''}${ii === 'fav' ? ' fav' : ''}"><th class="rh"><span class="dot" style="background:${stColor(it.st)}"></span><span class="nm">${ii === 'fav' ? '♥ ' : ''}${it.name}</span><small>${it.area} · ${fmtH(it.hrs)}${RGR[it.k] && RGR[it.k].minWeekendStay ? ' · wknd min ' + RGR[it.k].minWeekendStay[0] + 'n' : ''}</small></th>${cells}</tr>`;
+    return `<tr class="${ii === 'nope' ? 'nope' : ''}${ii === 'fav' ? ' fav' : ''}"><th class="rh"><span class="dot" style="background:${stColor(it.st)}"></span><span class="nm">${ii === 'fav' ? '♥ ' : ''}${it.name}</span><small>${it.area} · ${fmtH(it.hrs)}${RGR[it.k] && RGR[it.k].minWeekendStay && RGR[it.k].minWeekendStay[0] >= 2 ? ' · wknd min ' + RGR[it.k].minWeekendStay[0] + 'n' : ''}</small></th>${cells}</tr>`;
   }).join('');
   const sc = $('#gscroll'), keep = sc ? sc.scrollLeft : 0;
   $('#grid').innerHTML = days.length ? `<table><thead><tr><th class="rh corner">Campground<small>${n} night${n > 1 ? 's' : ''} from each date</small></th>${head}</tr></thead><tbody>${rows || ''}</tbody></table>` : '<div class="empty">No dates match this filter in the range. Scroll right or press Later.</div>';
