@@ -145,6 +145,20 @@ ul.good{margin:4px 0 0;padding-left:17px}
 .lk a.ig{color:#c13584;border-color:color-mix(in srgb,#c13584 40%,var(--line))}
 :root[data-theme="dark"] .lk a.ig{color:#f08ccb}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lk a.ig{color:#f08ccb}}
+.stats{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center}
+.ring{--p:0;--c:var(--none);width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center;flex:none}
+.ring > div{width:41px;height:41px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;line-height:1}
+.ring b{font:800 13.5px var(--display);font-variant-numeric:tabular-nums}
+.ring small{display:block;font-size:8.5px;color:var(--muted);margin-top:1px}
+.sline{display:grid;gap:4px;min-width:0}
+.sline .h{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.strip > div{padding:4px 6px;text-align:center;border-left:1px solid var(--line)}
+.strip > div:first-child{border-left:0}
+.strip b{display:block;font:800 15px/1.15 var(--display);font-variant-numeric:tabular-nums}
+.strip span{font-size:10.5px;color:var(--muted)}
+.card.nope .ring{filter:grayscale(1)}
+@media (max-width:560px){.strip b{font-size:13.5px}.strip span{font-size:9.5px}.ring{width:46px;height:46px}.ring > div{width:36px;height:36px}}
 @media (max-width:560px){.card{grid-template-columns:104px minmax(0,1fr)}.ph{min-height:120px}.hd h3{font-size:16px}.lk a:not(.book),.lk button{padding:3px 6px}}
 .empty{padding:34px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
 .banner{margin:14px 0 0;border-radius:12px;padding:10px 14px;font-size:13.5px;background:color-mix(in srgb,var(--warn) 18%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 40%,var(--line))}
@@ -460,9 +474,18 @@ function card(it) {
   return `<article class="card s-${it.st}${ii === 'fav' ? ' fav' : ''}${ii === 'nope' ? ' nope' : ''}" id="c-${it.k}">
    <div class="ph">${it.photo ? `<img loading="lazy" src="${it.photo}" alt="">` : ''}<span class="vb ${it.view}">${{ocean: 'Ocean', lake: 'Lake', valley: 'Valley', forest: 'Redwoods'}[it.view]}</span>${it.photo_credit ? `<span class="cr">${it.photo_credit}</span>` : ''}</div>
    <div class="cb">
-    <div class="hd"><div class="nm"><h3>${it.name}</h3><div class="ar">${it.area} · ${fmtH(it.hrs)} · ${it.price ? '$' + Math.round(it.price) + '/night' : 'price: see site'} · ${it.cap} ppl</div></div><div class="acts">${acts}</div></div>
-    <div class="avrow"><span class="pill p-${it.st}">${pillTxt[it.st]}</span><span>${avLine(it)}${it.pctc != null ? ` · <b>${Math.round(it.pctc)}%</b>` : ''}</span>${c ? bar(c) : ''}</div>
-    ${c ? `<div class="bk">Open ${c.avail} · Walk-up ${c.fcfs} · Reserved ${c.reserved} · Closed ${c.closed + c.nodata} · Total ${c.total}</div>` : ''}
+    <div class="hd"><div class="nm"><h3>${it.name}</h3><div class="ar">${it.area}</div></div><div class="acts">${acts}</div></div>
+    <div class="stats">
+      <div class="ring" style="--p:${it.pctc || 0};--c:${stColor(it.st)}"><div><div><b>${it.pctc == null ? '—' : Math.round(it.pctc) + '%'}</b><small>open</small></div></div></div>
+      <div class="sline"><div class="h"><span>${avLine(it)}</span><span class="pill p-${it.st}">${pillTxt[it.st]}</span></div>
+        ${c ? bar(c) + `<div class="bk">Open ${c.avail} · Walk-up ${c.fcfs} · Reserved ${c.reserved} · Closed ${c.closed + c.nodata} · Total ${c.total}</div>` : `<div class="bk">${it.live ? 'Press "Check open sites".' : 'Check the booking page for open sites.'}</div>`}</div>
+    </div>
+    <div class="strip">
+      <div><b>${it.price ? '$' + Math.round(it.price) : '—'}</b><span>per night</span></div>
+      <div><b>${fmtH(it.hrs)}</b><span>${it.miles ? it.miles + ' mi' : ''} drive</span></div>
+      <div><b>${it.cap}</b><span>people / site</span></div>
+      <div><b>${it.gm[0]}★</b><span>Google</span></div>
+    </div>
     <div class="facts">${rat.join('')}</div>
     <div class="am">${amen}</div>
     <details class="more"><summary>Why go${it.warn ? ' · notes' : ''}</summary><ul class="good">${it.good.map(g => `<li>${g}</li>`).join('')}</ul>${it.gmnote ? `<div class="bk">${it.gmnote}</div>` : ''}${it.warn ? `<div class="warn">${it.warn}</div>` : ''}</details>
