@@ -137,7 +137,9 @@ main.split{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding:18p
 /* card: compact row, photo left, details right */
 .card{position:relative;display:grid;grid-template-columns:190px minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border-left:4px solid var(--none)}
 .card.s-open{border-left-color:var(--ok)}.card.s-walk{border-left-color:var(--warn)}.card.s-full{border-left-color:var(--bad)}.card.s-closed{border-left-color:var(--shut)}
-.card.hl{outline:3px solid var(--accent);outline-offset:2px}
+.card.hl{outline:2px dashed var(--ocean);outline-offset:3px}
+.card.hl::after{content:"Opened from grid";position:absolute;top:8px;right:84px;font:700 10.5px var(--body);color:#fff;background:var(--ocean);border-radius:5px;padding:2px 7px;pointer-events:none}
+.favtag{display:inline-block;font:700 10.5px var(--body);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);border-radius:5px;padding:0 6px;margin-left:6px;vertical-align:2px}
 .card.fav{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 70%,transparent),var(--shadow)}
 .card.nope{opacity:.5;filter:grayscale(1)}
 .card.nope:hover{opacity:.8}
@@ -606,7 +608,7 @@ function card(it) {
   return `<article class="card s-${it.st}${ii === 'fav' ? ' fav' : ''}${ii === 'nope' ? ' nope' : ''}" id="c-${it.k}">
    <div class="ph">${it.photo ? `<img loading="lazy" src="${it.photo}" alt="">` : ''}<span class="vb ${it.view}">${{ocean: 'Ocean', lake: 'Lake', valley: 'Valley', forest: 'Redwoods'}[it.view]}</span>${it.photo_credit ? `<span class="cr">${it.photo_credit}</span>` : ''}</div>
    <div class="cb">
-    <div class="hd"><div class="nm"><h3>${it.name}</h3><div class="ar">${it.area}</div></div><div class="acts">${acts}</div></div>
+    <div class="hd"><div class="nm"><h3>${it.name}${ii === 'fav' ? '<span class="favtag">♥ Interested</span>' : ''}</h3><div class="ar">${it.area}</div></div><div class="acts">${acts}</div></div>
     <div class="stats">
       <div class="ring" style="--p:${it.pctc || 0};--c:${stColor(it.st)}"><div><div><b>${it.pctc == null ? '—' : Math.round(it.pctc) + '%'}</b><small>open</small></div></div></div>
       <div class="sline"><div class="h"><span>${avLine(it)}</span><span class="pill p-${it.st}">${pillTxt[it.st]}</span></div>
@@ -713,7 +715,7 @@ function render() {
   tiles(); syncControls();
   setTimeout(() => map.invalidateSize(), 50);
 }
-map.on('popupopen', e => { const a = e.popup.getElement().querySelector('[data-go]'); if (a) a.onclick = ev => { ev.preventDefault(); const el = document.getElementById('c-' + a.dataset.go); if (el) { $$('.hl').forEach(x => x.classList.remove('hl')); el.classList.add('hl'); el.scrollIntoView({behavior: 'smooth', block: 'center'}); } }; });
+map.on('popupopen', e => { const a = e.popup.getElement().querySelector('[data-go]'); if (a) a.onclick = ev => { ev.preventDefault(); const el = document.getElementById('c-' + a.dataset.go); if (el) { flash(el); el.scrollIntoView({behavior: 'smooth', block: 'center'}); } }; });
 
 /* ---------- controls ---------- */
 const fmt = {pct: v => v + '%', price: v => '$' + v, drive: v => v + 'h', open: v => v, gm: v => (+v).toFixed(1), gmn: v => (+v).toLocaleString()};
@@ -756,6 +758,7 @@ $('#list').addEventListener('click', e => {
   const mb = e.target.closest('[data-map]');
   if (mb) { const m = markers[mb.dataset.map]; if (!m) return; $('#map').scrollIntoView({behavior: 'smooth', block: 'center'}); map.setView(m.getLatLng(), 10); setTimeout(() => m.openPopup(), 350); }
 });
+function flash(el) { $$('.hl').forEach(x => x.classList.remove('hl')); el.classList.add('hl'); clearTimeout(flash.t); flash.t = setTimeout(() => el.classList.remove('hl'), 5000); }
 $('#din').value = IN; $('#dout').value = OUT;
 $('#din').min = todayISO(); $('#dout').min = addDays(todayISO(), 1);
 function setDates(a, b, fetchNow = true) {
@@ -782,7 +785,7 @@ $('#gscroll').addEventListener('scroll', e => { const s = e.target; if (s.scroll
 $('#grid').addEventListener('click', e => {
   const td = e.target.closest('[data-cell]'); if (!td) return; const [k, d] = td.dataset.cell.split('|');
   F.mode = 'list'; saveF(); setDates(d, addDays(d, +F.gNights));
-  setTimeout(() => { const el = document.getElementById('c-' + k); if (el) { $$('.hl').forEach(x => x.classList.remove('hl')); el.classList.add('hl'); el.scrollIntoView({behavior: 'smooth', block: 'center'}); } }, 80);
+  setTimeout(() => { const el = document.getElementById('c-' + k); if (el) { flash(el); el.scrollIntoView({behavior: 'smooth', block: 'center'}); } }, 80);
 });
 $('#reset').onclick = () => {
   const keep = STORE; LS.clear(); STORE = keep; saveStore();   // availability cache is kept; marks, dates and filters are cleared
