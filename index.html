@@ -618,7 +618,7 @@ const map = L.map('map', {scrollWheelZoom: false, minZoom: 5, maxZoom: 13, maxBo
 L.tileLayer('tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 8, bounds: [[33.7, -126.4], [42.5, -116.1]]}).addTo(map);
 L.tileLayer('tiles/{z}/{x}/{y}.png', {minZoom: 9, maxNativeZoom: 9, maxZoom: 13, bounds: [[34.95, -124.35], [40.15, -118.35]]}).addTo(map);
 let remoteTiles = null;
-map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
+map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>');
 map.on('focus', () => map.scrollWheelZoom.enable()); map.on('blur', () => map.scrollWheelZoom.disable());
 L.marker([37.3382, -121.8863], {icon: L.divIcon({className: '', html: '<div style="width:13px;height:13px;background:#111;border:2px solid #fff;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.5)"></div>', iconSize: [13, 13]})}).addTo(map).bindTooltip('San Jose (start)');
 const layer = L.layerGroup().addTo(map); const markers = {};
@@ -901,6 +901,13 @@ $('#list').addEventListener('pointerover', e => { const ph = e.target.closest('.
 })();
 if (/^#photos-/.test(location.hash)) { const k = location.hash.slice(8); history.replaceState(null, '', location.pathname + location.search); }
 
+
+/* every link to another website opens in a new tab (cards, grid, map popups, gallery, footer, map credits) */
+function extTarget(a) { try { const u = new URL(a.href, location.href); if (/^https?:$/.test(u.protocol) && u.host !== location.host) { a.target = '_blank'; a.rel = 'noopener noreferrer'; } } catch (e) {} }
+document.addEventListener('click', e => { const a = e.target.closest('a[href]'); if (a) extTarget(a); }, true);
+document.addEventListener('auxclick', e => { const a = e.target.closest('a[href]'); if (a) extTarget(a); }, true);
+new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType !== 1) return; if (n.matches && n.matches('a[href]')) extTarget(n); n.querySelectorAll && n.querySelectorAll('a[href]').forEach(extTarget); }))).observe(document.body, {childList: true, subtree: true});
+document.querySelectorAll('a[href]').forEach(extTarget);
 
 /* ---------- boot: test whether live calls work here ---------- */
 (async () => {
