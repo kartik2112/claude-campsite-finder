@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bay Area Campsite Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style>
+<style>
+/* Layout idea: dusk-coast hero with contour lines, a filter dock, then cards beside a sticky map. Cards lead with the photo; numbers sit in a compact stat strip. */
+:root{
+  --bg:#f4f1ea; --surface:#fffdf8; --raise:#ffffff; --ink:#1b2a33; --muted:#5f6c72; --line:#e3ddd0;
+  --accent:#e2643a; --accent-ink:#ffffff; --deep:#123a4a; --deep-ink:#f7f3ea;
+  --ok:#2f9e5b; --warn:#d99a1e; --bad:#c9483b; --none:#93a0a5; --shut:#6e7c82;
+  --ocean:#2a7fb8; --lake:#1f9d8f; --valley:#b0782f; --forest:#4c8a3f;
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:16px; --shadow:0 1px 2px rgba(20,30,40,.06),0 8px 24px rgba(20,30,40,.07); color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1518; --surface:#141e22; --raise:#18252a; --ink:#eef2f0; --muted:#a3b2b6; --line:#26363c;
+  --accent:#ff8457; --accent-ink:#1b0d06; --deep:#0a2430; --deep-ink:#eef4f2;
+  --ok:#53cc84; --warn:#f0bb4a; --bad:#f07a6c; --none:#7d8c90; --shut:#8796a0;
+  --ocean:#6cb6ea; --lake:#4fd0c0; --valley:#e0ac63; --forest:#86c470; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0e1518; --surface:#141e22; --raise:#18252a; --ink:#eef2f0; --muted:#a3b2b6; --line:#26363c;
+  --accent:#ff8457; --accent-ink:#1b0d06; --deep:#0a2430; --deep-ink:#eef4f2;
+  --ok:#53cc84; --warn:#f0bb4a; --bad:#f07a6c; --none:#7d8c90; --shut:#8796a0;
+  --ocean:#6cb6ea; --lake:#4fd0c0; --valley:#e0ac63; --forest:#86c470; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+.wrap{max-width:1520px;margin:0 auto;padding:0 18px}
+/* hero */
+.hero{position:relative;background:var(--deep);color:var(--deep-ink);overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.hero .wrap{position:relative;padding-top:26px;padding-bottom:22px}
+.eyebrow{font:700 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--deep-ink) 70%,transparent)}
+.hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.02;margin-top:6px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{margin-top:8px;max-width:75ch;color:color-mix(in srgb,var(--deep-ink) 82%,transparent);font-size:14.5px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.datebox{display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--deep-ink) 10%,transparent);border:1px solid color-mix(in srgb,var(--deep-ink) 25%,transparent);border-radius:12px;padding:6px 6px 6px 12px}
+.datebox label{font-weight:600;font-size:13px}
+.datebox input{font:600 15px var(--body);background:var(--raise);color:var(--ink);border:0;border-radius:8px;padding:7px 9px}
+.hbtn{font:700 13.5px var(--body);border-radius:10px;padding:9px 14px;border:1px solid color-mix(in srgb,var(--deep-ink) 30%,transparent);background:transparent;color:var(--deep-ink);cursor:pointer}
+.hbtn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.status{font-size:13px;color:color-mix(in srgb,var(--deep-ink) 85%,transparent);display:flex;align-items:center;gap:8px}
+.status .dot{width:9px;height:9px;border-radius:50%;background:var(--none);flex:none}
+.status.live .dot{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 30%,transparent)}
+.status.busy .dot{background:var(--warn);animation:pulse 1s infinite}
+.status.snap .dot{background:var(--warn)}
+@keyframes pulse{50%{opacity:.35}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:16px;max-width:900px}
+.tile{background:color-mix(in srgb,var(--deep-ink) 8%,transparent);border:1px solid color-mix(in srgb,var(--deep-ink) 18%,transparent);border-radius:12px;padding:9px 12px}
+.tile b{display:block;font:800 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:color-mix(in srgb,var(--deep-ink) 78%,transparent)}
+/* dock */
+.dock{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.drow{display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;padding:10px 0}
+.drow.more{display:none;border-top:1px solid var(--line);padding:14px 0 16px;gap:16px 26px;align-items:flex-start}
+.dock.open .drow.more{display:flex}
+input[type=search],select{font:14px var(--body);color:var(--ink);background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+input[type=search]{flex:1;min-width:190px}
+.seg{display:inline-flex;background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:600 13px var(--body);border:0;background:transparent;color:var(--muted);border-radius:7px;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chip{font:600 13px var(--body);border:1px solid var(--line);background:var(--raise);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.dbtn{font:700 13px var(--body);border-radius:10px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--raise);color:var(--ink)}
+.dbtn.warn{color:var(--bad)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+.fg{display:grid;gap:7px;min-width:220px}
+.fg > .t{font:700 11.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.fg > .t b{font:700 12.5px var(--body);letter-spacing:0;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums}
+.fg .opts{display:flex;flex-wrap:wrap;gap:6px}
+/* dual range */
+.dual{position:relative;height:28px}
+.dual .track{position:absolute;left:0;right:0;top:12px;height:5px;border-radius:5px;background:var(--line)}
+.dual .fill{position:absolute;top:12px;height:5px;border-radius:5px;background:var(--accent)}
+.dual input{position:absolute;left:0;top:0;width:100%;height:28px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+.dual input::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;width:20px;height:20px;border-radius:50%;background:var(--raise);border:3px solid var(--accent);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.dual input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:var(--raise);border:3px solid var(--accent);cursor:pointer}
+.dual input::-moz-range-track{background:none}
+/* layout */
+main.split{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding:18px 0 40px}
+#map{height:48vh;min-height:300px;border-radius:var(--r);border:1px solid var(--line);background:var(--line);box-shadow:var(--shadow)}
+@media (min-width:1080px){main.split{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.mapcol{order:2}.mapcol .stick{position:sticky;top:76px}#map{height:calc(100vh - 120px)}}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.list{display:grid;gap:16px}
+@media (min-width:720px) and (max-width:1079px){.list{grid-template-columns:1fr 1fr}}
+/* card */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.hl{outline:3px solid var(--accent);outline-offset:2px}
+.card.fav{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.ph{position:relative;aspect-ratio:16/8;background:var(--line);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover .ph img{transform:scale(1.03)}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0,transparent 35%,transparent 45%,rgba(0,0,0,.78) 100%)}
+.ph .top{position:absolute;z-index:1;top:10px;left:10px;right:10px;display:flex;gap:6px;align-items:center}
+.vb{color:#fff;font:700 11.5px var(--body);border-radius:6px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em}
+.vb.ocean{background:var(--ocean)}.vb.lake{background:var(--lake)}.vb.valley{background:var(--valley)}.vb.forest{background:var(--forest)}
+.tag{background:rgba(0,0,0,.55);color:#fff;font:600 11.5px var(--body);border-radius:6px;padding:3px 8px}
+.ph .acts{margin-left:auto;display:flex;gap:6px}
+.ib{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#1b2a33;cursor:pointer;display:grid;place-items:center;font:700 16px var(--body)}
+.ib[aria-pressed="true"].love{background:var(--accent);color:#fff}
+.ib[aria-pressed="true"].nope{background:#1b2a33;color:#fff}
+.ph .ttl{position:absolute;z-index:1;left:14px;right:14px;bottom:10px;color:#fff}
+.ph .ttl h3{font-size:24px;line-height:1.05;font-weight:800;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.ph .ttl .ar{font-size:13px;opacity:.92}
+.ph .cr{position:absolute;z-index:1;right:8px;bottom:4px;color:#fff;font-size:9.5px;opacity:.7}
+.cb{padding:14px 16px 16px;display:grid;gap:12px}
+.stats{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.ring{--p:0;--c:var(--none);width:66px;height:66px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center}
+.ring > div{width:52px;height:52px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;line-height:1}
+.ring b{font:800 16px var(--display);font-variant-numeric:tabular-nums}
+.ring small{display:block;font-size:9.5px;color:var(--muted);margin-top:1px}
+.sline{display:grid;gap:5px}
+.sline .h{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.sline .h b{font-size:15px}
+.pill{font:700 11.5px var(--body);padding:3px 9px;border-radius:999px;color:#fff;white-space:nowrap}
+.p-open{background:var(--ok)}.p-walk{background:var(--warn)}.p-full{background:var(--bad)}.p-closed{background:var(--shut)}.p-none{background:var(--none)}
+.bar{display:flex;height:8px;border-radius:5px;overflow:hidden;background:var(--line)}
+.bar span{display:block;height:100%}
+.b-a{background:var(--ok)}.b-f{background:var(--warn)}.b-r{background:var(--bad)}.b-c{background:var(--shut);opacity:.5}
+.bk{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.strip > div{padding:7px 8px;text-align:center;border-left:1px solid var(--line)}
+.strip > div:first-child{border-left:0}
+.strip b{display:block;font:800 17px/1.1 var(--display);font-variant-numeric:tabular-nums}
+.strip span{font-size:11px;color:var(--muted)}
+.rt{display:flex;flex-wrap:wrap;gap:6px}
+.rbox{border:1px solid var(--line);border-radius:9px;padding:4px 9px;font-size:12.5px;white-space:nowrap;background:var(--raise)}
+.rbox b{font-variant-numeric:tabular-nums}
+.rbox .st{color:#e8a317}
+.am{display:flex;flex-wrap:wrap;gap:5px}
+.am span{font-size:12px;border-radius:6px;padding:3px 8px;background:color-mix(in srgb,var(--lake) 14%,transparent)}
+.am span.no{background:transparent;border:1px dashed var(--line);color:var(--muted);text-decoration:line-through}
+.am span.walk{background:color-mix(in srgb,var(--warn) 22%,transparent)}
+ul.good{margin:0;padding-left:18px;font-size:13.5px}
+.warn{font-size:12.5px;color:var(--muted);border-left:3px solid var(--warn);padding-left:9px}
+.lk{display:flex;flex-wrap:wrap;gap:6px}
+.lk a,.lk button{font:700 12.5px var(--body);text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:6px 10px;color:var(--ink);background:var(--raise);cursor:pointer}
+.lk a.book{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.lk a.ig{color:#c13584;border-color:color-mix(in srgb,#c13584 40%,var(--line))}
+:root[data-theme="dark"] .lk a.ig{color:#f08ccb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lk a.ig{color:#f08ccb}}
+.mini{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.mini b{color:var(--ink)}
+.mini button{margin-left:auto;font:700 12.5px var(--body);border:1px solid var(--line);background:var(--raise);color:var(--ink);border-radius:8px;padding:5px 10px;cursor:pointer}
+.empty{padding:34px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
+.banner{margin:14px 0 0;border-radius:12px;padding:10px 14px;font-size:13.5px;background:color-mix(in srgb,var(--warn) 18%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 40%,var(--line))}
+section.tips{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-top:16px}
+section.tips h2{font-size:22px;margin-bottom:6px}
+section.tips ol{margin:0;padding-left:20px;font-size:13.5px}
+section.tips li{margin:3px 0}
+footer{font-size:12px;color:var(--muted);padding:6px 0 30px}
+.pin{display:flex;align-items:center;justify-content:center;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.pin b{transform:rotate(45deg);color:#fff;font:800 11px var(--body)}
+.pin.fav{border-color:#ffd166;border-width:3px}
+.leaflet-popup-content{font-family:var(--body);font-size:13px;margin:10px 12px}
+.leaflet-popup-content b.n{font-family:var(--display);font-size:16px}
+.pp img{width:100%;height:96px;object-fit:cover;border-radius:8px;margin-bottom:6px;display:block}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:brightness(.72) contrast(1.1) saturate(.75)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:brightness(.72) contrast(1.1) saturate(.75)}}
+@media (max-width:760px){.dock{position:static}.strip{grid-template-columns:repeat(2,1fr)}.strip > div:nth-child(3){border-left:0}.strip > div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <canvas id="topo" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Tent or car camping · drive-in · restrooms · a view</div>
+    <h1>Find a campsite for <em id="hdate">one night</em></h1>
+    <div class="sub">49 popular campgrounds within 5 hours of San Jose. Pick a night. The page checks live open sites on Recreation.gov, ReserveCalifornia and East Bay Parks. Mark the ones you like. Your choices stay saved until you press Reset.</div>
+    <div class="controls">
+      <div class="datebox"><label for="date">Night of</label><input type="date" id="date"></div>
+      <button class="hbtn primary" id="refresh">Check open sites</button>
+      <div class="status" id="status" role="status" aria-live="polite"><span class="dot"></span><span id="stxt">Not checked yet</span></div>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div id="banner"></div>
+  </div>
+</header>
+
+<div class="dock" id="dock">
+  <div class="wrap">
+    <div class="drow">
+      <label class="sr" for="q">Search</label>
+      <input type="search" id="q" placeholder="Search name or area: Big Sur, Monterey, lake…">
+      <div class="seg" role="group" aria-label="Show">
+        <button data-show="all" aria-pressed="true">All</button>
+        <button data-show="fav" aria-pressed="false">♥ Interested</button>
+        <button data-show="hide" aria-pressed="false">Hide not interested</button>
+      </div>
+      <select id="avf" aria-label="Open sites">
+        <option value="any">Any open status</option>
+        <option value="open">Has open sites</option>
+        <option value="walk">Open or walk-up sites</option>
+        <option value="live">Live check possible</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="best">Sort: Best match</option>
+        <option value="avail">Sort: Most open sites</option>
+        <option value="pct">Sort: Highest % open</option>
+        <option value="drive">Sort: Shortest drive</option>
+        <option value="price">Sort: Lowest price</option>
+        <option value="gm">Sort: Google rating</option>
+        <option value="gmn">Sort: Most Google reviews</option>
+      </select>
+      <button class="dbtn" id="morebtn" aria-expanded="false">Filters</button>
+      <button class="dbtn warn" id="reset" title="Clears the date, filters and your choices">Reset</button>
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+    <div class="drow more" id="more">
+      <div class="fg"><div class="t">% open <b id="v-pct"></b></div><div class="dual" data-k="pct" data-min="0" data-max="100" data-step="5"></div></div>
+      <div class="fg"><div class="t">Price / night <b id="v-price"></b></div><div class="dual" data-k="price" data-min="0" data-max="100" data-step="5"></div></div>
+      <div class="fg"><div class="t">Drive from San Jose <b id="v-drive"></b></div><div class="dual" data-k="drive" data-min="0" data-max="5" data-step="0.25"></div></div>
+      <div class="fg"><div class="t">Open sites <b id="v-open"></b></div><div class="dual" data-k="open" data-min="0" data-max="100" data-step="1"></div></div>
+      <div class="fg"><div class="t">Google rating <b id="v-gm"></b></div><div class="dual" data-k="gm" data-min="3.5" data-max="5" data-step="0.1"></div></div>
+      <div class="fg"><div class="t">Google reviews <b id="v-gmn"></b></div><div class="dual" data-k="gmn" data-min="0" data-max="3600" data-step="50"></div></div>
+      <div class="fg"><div class="t">View</div><div class="opts" data-set="views">
+        <button class="chip" data-v="ocean" aria-pressed="true"><i style="background:var(--ocean)"></i>Ocean</button>
+        <button class="chip" data-v="lake" aria-pressed="true"><i style="background:var(--lake)"></i>Lake</button>
+        <button class="chip" data-v="valley" aria-pressed="true"><i style="background:var(--valley)"></i>Valley / mountain</button>
+        <button class="chip" data-v="forest" aria-pressed="true"><i style="background:var(--forest)"></i>Redwood / forest</button></div></div>
+      <div class="fg"><div class="t">Access</div><div class="opts" data-set="access">
+        <button class="chip" data-v="drive" aria-pressed="true">Drive-in</button>
+        <button class="chip" data-v="walk" aria-pressed="true">Short walk-in</button></div></div>
+      <div class="fg"><div class="t">Book on</div><div class="opts" data-set="srcs" id="srcopts"></div></div>
+      <div class="fg"><div class="t">Must have</div><div class="opts" data-set="must">
+        <button class="chip" data-v="showers" aria-pressed="false">Showers</button>
+        <button class="chip" data-v="water" aria-pressed="false">Drinking water</button>
+        <button class="chip" data-v="fire" aria-pressed="false">Fire ring</button>
+        <button class="chip" data-v="reels" aria-pressed="false">Instagram reels</button></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <main class="split">
+    <div class="mapcol"><div class="stick">
+      <div id="map" role="region" aria-label="Map of campgrounds"></div>
+      <div class="legend">
+        <span><i style="background:var(--ok)"></i>Open (number = open sites)</span>
+        <span><i style="background:var(--warn)"></i>Walk-up only</span>
+        <span><i style="background:var(--bad)"></i>Full</span>
+        <span><i style="background:var(--shut)"></i>Closed for season</span>
+        <span><i style="background:var(--none)"></i>No live check</span>
+        <span><i style="background:#ffd166"></i>Ring = interested</span>
+      </div>
+    </div></div>
+    <div>
+      <div class="list" id="list"></div>
+      <section class="tips">
+        <h2>How to get a site</h2>
+        <ol>
+          <li>Popular coast camps (Kirk Creek, Steep Ravine, Kirby Cove, Pfeiffer) fill 6 months ahead. Check for cancellations in the morning and at night.</li>
+          <li>Walk-up (first-come) sites go early. Arrive on Friday or before 11 AM. Bring cash for the pay box.</li>
+          <li>Private Big Sur camps (Ventana, Big Sur Campground, Riverside, Fernwood) cannot be checked here. Use their booking pages.</li>
+          <li>Hwy 1 through Big Sur is open. Check Caltrans QuickMap after rain.</li>
+          <li>Late-fall nights are cold: about 35–45 °F at the coast. Bring a warm sleeping bag.</li>
+          <li>Check the campground page for fire bans before you light a fire.</li>
+        </ol>
+      </section>
+      <footer>
+        <p>Live sources: Recreation.gov availability API, ReserveCalifornia (Tyler RDR) API, Campflare (East Bay Parks Del Valle). Static: Google Maps ratings, The Dyrt ratings, CA State Parks and Recreation.gov photos, OSRM drive times (approximate), Instagram keyword search for reels. Map © OpenStreetMap contributors.</p>
+        <p>"Total" counts single tent / RV sites only. Group, hike/bike, cabin and horse sites are not counted. "% open" = open sites ÷ total sites. Your date, filters and choices are saved in this browser only.</p>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = {"checked":"Nov 11, 2026 09:06 PM PT","night":"2026-11-21","items":[{"k":"kirk","name":"Kirk Creek Campground","area":"Big Sur (south)","view":"ocean","good":["Every site is on a cliff 100 ft above the Pacific.","Sunset over the ocean from your tent.","Trail to the beach below the bluff.","2 sites are first-come (walk-up)."],"warn":"No drinking water. No cell signal. Vault toilets. The fastest route uses Nacimiento-Fergusson Rd (steep and narrow).","gm":[4.7,481],"gmnote":"","reels":["DVEIshJCtOg","C6Y8Zr5oRkJ","DboFfyqQWWO"],"ig":"kirk creek campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/233116","site_rating":[4.52,887,"Recreation.gov"],"price":47,"cap":8,"amen":{"toilets":true,"flush":false,"vault":true,"showers":false,"water":false,"fire":true},"lat":35.9916667,"lon":-121.4941667,"hrs":2.79,"miles":129,"dyrt":[4.7,49],"dyrt_url":"https://thedyrt.com/camping/california/california-kirk-creek","photo":"img/kirk.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":30,"fcfs":2,"closed":0,"nodata":0,"total":32},"live":{"type":"recgov","id":233116},"access":"drive"},{"k":"plaskett","name":"Plaskett Creek Campground","area":"Big Sur (south)","view":"ocean","good":["Grass meadow under cypress trees, out of the wind.","Walk to Sand Dollar Beach, the largest sandy beach in Big Sur.","Jade Cove is 0.4 mi away.","2 sites are first-come (walk-up)."],"warn":"Sites are on the inland side of Hwy 1. Ocean view is from the beach, not from all sites.","gm":[4.4,358],"gmnote":"","reels":["DHtnM0dSMyb","DKj3pytI-Fj","DY4wX6OAzjG"],"ig":"plaskett creek campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/231959","site_rating":[4.26,859,"Recreation.gov"],"price":47,"cap":8,"amen":{"toilets":true,"flush":true,"vault":true,"showers":false,"water":true,"fire":true},"lat":35.9172222,"lon":-121.465,"hrs":2.93,"miles":134,"dyrt":[4.3,29],"dyrt_url":"https://thedyrt.com/camping/california/california-plaskett-creek","photo":"img/plaskett.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":35,"fcfs":2,"closed":0,"nodata":6,"total":43},"live":{"type":"recgov","id":231959},"access":"drive"},{"k":"kirby","name":"Kirby Cove Campground","area":"Marin Headlands (Golden Gate)","view":"ocean","good":["Private beach with a direct view of the Golden Gate Bridge.","Only 5 sites, so it is quiet.","City lights and bridge at night."],"warn":"Very few sites. Pit toilets. No pets. Gate code needed for the dirt road.","gm":[4.7,283],"gmnote":"","reels":["C4a-Omqr582","DEpmfMBoU4S","DLXmijnxLMt"],"ig":"kirby cove campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/232491","site_rating":[4.58,210,"Recreation.gov"],"price":40,"cap":10,"amen":{"toilets":true,"flush":false,"vault":true,"showers":false,"water":false,"fire":true},"lat":37.84035,"lon":-122.4888889,"hrs":1.28,"miles":56,"dyrt":[4.5,15],"dyrt_url":"https://thedyrt.com/camping/california/kirby-cove-campground","photo":"img/kirby.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":6,"fcfs":0,"closed":0,"nodata":0,"total":6},"live":{"type":"recgov","id":232491},"access":"drive"},{"k":"limekiln","name":"Limekiln State Park","area":"Big Sur (south)","view":"ocean","good":["Beach sites under the Hwy 1 bridge, a few steps from the ocean.","Redwood creek sites and a short trail to a waterfall.","Hot showers and flush toilets."],"warn":"Small (about 20 sites). Books out fast.","gm":[4.7,152],"gmnote":"","reels":["CvJumSaL30F","DbTdKoEMri_","CnuZ97oownO"],"ig":"limekiln state park big sur","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/666","site_rating":null,"price":50.0,"cap":6,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":36.010813,"lon":-121.517351,"hrs":2.77,"miles":127,"dyrt":[4.7,42],"dyrt_url":"https://thedyrt.com/camping/california/limekiln-state-park","photo":"img/limekiln.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":15,"fcfs":0,"closed":3,"nodata":0,"total":18},"live":{"type":"rc","fids":[546,1130]},"access":"drive"},{"k":"sscreek","name":"San Simeon Creek Campground","area":"Cambria / San Simeon","view":"ocean","good":["Walk under Hwy 1 to the beach.","Near Hearst Castle, elephant seals and Moonstone Beach.","Flush toilets and showers."],"warn":"Sites are behind the dunes; the ocean is a short walk away.","gm":[4.4,749],"gmnote":"","reels":["C9kzPn6SHZ7","DLH7X7CoDKL","DEvQ4iKyHO6"],"ig":"san simeon state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/713","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":35.59758966666667,"lon":-121.12424066666668,"hrs":3.74,"miles":169,"dyrt":[3.5,6],"dyrt_url":"https://thedyrt.com/camping/california/creek-campground-upper-section-sites-1-35-hearst-san-simeon-state-park","photo":"img/sscreek.jpg","photo_credit":"CA State Parks","c":{"avail":1,"reserved":94,"fcfs":19,"closed":2,"nodata":0,"total":116},"live":{"type":"rc","fids":[789,687,788]},"access":"drive"},{"k":"washburn","name":"Washburn Campground (San Simeon SP)","area":"Cambria / San Simeon","view":"ocean","good":["On a hill above San Simeon Creek with ocean views from upper sites.","Quieter than the lower creek campground.","Low price ($20)."],"warn":"Primitive campground on a hill. Check which sites have the view.","gm":[4.4,247],"gmnote":"","reels":["C9kzPn6SHZ7","DfNRgE5Kox_"],"ig":"san simeon state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/713","site_rating":null,"price":20.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":35.59486,"lon":-121.11112,"hrs":3.87,"miles":170,"dyrt":[4.4,10],"dyrt_url":"https://thedyrt.com/camping/california/washburn-campground-ca","photo":"img/washburn.jpg","photo_credit":"CA State Parks","c":{"avail":8,"reserved":56,"fcfs":0,"closed":1,"nodata":0,"total":65},"live":{"type":"rc","fids":[787]},"access":"drive"},{"k":"morrostrand","name":"Morro Strand State Beach","area":"Morro Bay","view":"ocean","good":["Sites are directly behind the beach.","View of Morro Rock.","Walk to town and food in Morro Bay."],"warn":"Sites are close together. Can be windy.","gm":[4.5,724],"gmnote":"","reels":["DWWonEKggtY","DMxsMOtxhIt","DFyp_1gJz5H"],"ig":"morro strand state beach camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/681","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":false,"water":true,"fire":true},"lat":35.399933,"lon":-120.866786,"hrs":3.71,"miles":186,"dyrt":[3.8,43],"dyrt_url":"https://thedyrt.com/camping/california/morro-strand-sb","photo":"img/morrostrand.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":73,"fcfs":0,"closed":0,"nodata":0,"total":73},"live":{"type":"rc","fids":[584,587]},"access":"drive"},{"k":"wrights","name":"Wright's Beach Campground","area":"Sonoma Coast (Bodega Bay)","view":"ocean","good":["Sites are on the sand, at the edge of the ocean.","Fire rings on the beach for sunset fires.","About 2 h from the Bay Area."],"warn":"Very strong surf. Do not swim. No showers.","gm":[4.7,317],"gmnote":"","reels":["Dbl2JLPS6Vz","DO3qAgtEY0u","DIluvfyoEn-"],"ig":"wrights beach campground","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/718","site_rating":null,"price":45.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":false,"water":true,"fire":true},"lat":38.4002415289999,"lon":-123.095075537,"hrs":2.59,"miles":118,"dyrt":[4.3,19],"dyrt_url":"https://thedyrt.com/camping/california/california-wrights-beach-sonoma-coast-state-park","photo":"img/wrights.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":24,"fcfs":0,"closed":0,"nodata":0,"total":24},"live":{"type":"rc","fids":[706]},"access":"drive"},{"k":"bodega","name":"Bodega Dunes Campground","area":"Sonoma Coast (Bodega Bay)","view":"ocean","good":["Sites in the dunes, with a boardwalk to the beach.","Hot showers.","Walk to Bodega Bay town."],"warn":"Sites are in the dunes; most have no direct ocean view.","gm":[4.5,356],"gmnote":"","reels":["Dbl2JLPS6Vz"],"ig":"bodega dunes campground","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/718","site_rating":null,"price":45.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":38.341865,"lon":-123.055032,"hrs":2.47,"miles":113,"dyrt":[4.2,42],"dyrt_url":"https://thedyrt.com/camping/california/california-sonoma-coast-state-park-bodega-dunes","photo":"img/bodega.jpg","photo_credit":"CA State Parks","c":{"avail":1,"reserved":73,"fcfs":0,"closed":7,"nodata":0,"total":81},"live":{"type":"rc","fids":[2061]},"access":"drive"},{"k":"gerstle","name":"Gerstle Cove (Salt Point SP)","area":"Sonoma Coast (Jenner)","view":"ocean","good":["Sites on the coast bluff above a rocky cove.","Tafoni sandstone and tide pools.","Open year-round."],"warn":"No showers. Coast fog is common.","gm":[4.6,96],"gmnote":"","reels":["DcWRB7RxtCF","Darvi1oh2-r","DaMgex_hX_0"],"ig":"salt point gerstle cove camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/703","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":false,"water":true,"fire":true},"lat":38.56887265,"lon":-123.3248053,"hrs":3.13,"miles":140,"dyrt":[4.7,20],"dyrt_url":"https://thedyrt.com/camping/california/gerstle-cove-campground","photo":"img/gerstle.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":25,"fcfs":0,"closed":0,"nodata":0,"total":25},"live":{"type":"rc","fids":[648]},"access":"drive"},{"k":"mackerricher","name":"MacKerricher State Park","area":"Fort Bragg (Mendocino)","view":"ocean","good":["Walk to Laguna Point seal watching boardwalk.","Lake Cleone and long sandy beach.","Near Glass Beach and Fort Bragg."],"warn":"About 4 h drive. Many sites have no data online (FCFS loops).","gm":[4.8,3257],"gmnote":"Google rating is for the whole park.","reels":["DKsqeGpSTVV","C6E4dezBnU1","CnKdcpxJdEs"],"ig":"mackerricher state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/668","site_rating":null,"price":45.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":39.4908688159,"lon":-123.7928538179,"hrs":4.7,"miles":220,"dyrt":[4.5,48],"dyrt_url":"https://thedyrt.com/camping/california/cleone-group-area-mackerricher-state-park","photo":"img/mackerricher.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":38,"fcfs":0,"closed":71,"nodata":0,"total":109},"live":{"type":"rc","fids":[556,557,558]},"access":"drive"},{"k":"brighton","name":"New Brighton State Beach","area":"Capitola (Santa Cruz)","view":"ocean","good":["Sites on a bluff above Monterey Bay.","Stairs down to the beach.","Only about 40 min from San Jose."],"warn":"38 sites are closed for the season.","gm":[4.6,2296],"gmnote":"","reels":[],"ig":"new brighton state beach camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/685","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":36.9802395,"lon":-121.9346005,"hrs":0.89,"miles":37,"dyrt":[4.5,47],"dyrt_url":"https://thedyrt.com/camping/california/new-brighton-state-beach","photo":"img/brighton.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":57,"fcfs":0,"closed":43,"nodata":0,"total":100},"live":{"type":"rc","fids":[597,598]},"access":"drive"},{"k":"sunset","name":"Sunset State Beach","area":"Watsonville","view":"ocean","good":["Bluff top sites over a long, empty beach.","Good sunsets over Monterey Bay.","About 1 h from San Jose."],"warn":"47 sites are closed for the season.","gm":[4.3,252],"gmnote":"","reels":[],"ig":"sunset state beach camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/726","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":36.88666268995,"lon":-121.8284686825,"hrs":1.17,"miles":47,"dyrt":[4.3,28],"dyrt_url":"https://thedyrt.com/camping/california/california-sunset-state-beach","photo":"img/sunset.jpg","photo_credit":"CA State Parks","c":{"avail":1,"reserved":33,"fcfs":0,"closed":53,"nodata":0,"total":87},"live":{"type":"rc","fids":[734,737]},"access":"drive"},{"k":"francis","name":"Francis Beach (Half Moon Bay SB)","area":"Half Moon Bay","view":"ocean","good":["Sites behind the beach with ocean sound.","Coastal trail to Half Moon Bay town.","About 1 h from San Jose."],"warn":"Open, windy sites with little privacy.","gm":[4.5,824],"gmnote":"","reels":[],"ig":"francis beach half moon bay camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/652","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":37.4688245007,"lon":-122.445841032,"hrs":0.97,"miles":41,"dyrt":[4.3,30],"dyrt_url":"https://thedyrt.com/camping/california/francis-beach-campground","photo":"img/francis.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":44,"fcfs":0,"closed":0,"nodata":0,"total":44},"live":{"type":"rc","fids":[498]},"access":"drive"},{"k":"doran","name":"Doran Regional Park","area":"Bodega Bay","view":"ocean","good":["Sites on a sand spit between the ocean and Bodega Harbor.","2-mile beach. Hot showers and flush toilets.","Open year-round."],"warn":"Availability not checked: the Sonoma County Parks site shows a CAPTCHA.","gm":[4.7,3529],"gmnote":"Google rating is for the whole park.","reels":[],"ig":"doran beach camping","src":"Sonoma County Parks","book":"https://parks.sonomacounty.ca.gov/visit/find-a-park/doran-regional-park","site_rating":null,"price":37,"cap":8,"amen":{"toilets":true,"flush":true,"vault":false,"showers":true,"water":true,"fire":true},"lat":38.3136,"lon":-123.0466,"hrs":2.41,"miles":111,"dyrt":[4.4,34],"dyrt_url":"https://thedyrt.com/camping/california/california-doran-regional-park","photo":"img/doran.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"clearlake","name":"Clear Lake State Park","area":"Kelseyville (Lake County)","view":"lake","good":["Lakefront sites on the largest natural lake in California.","View of Mount Konocti.","Many open sites for Nov 21."],"warn":"73 sites have no online data (other loops).","gm":[4.4,1094],"gmnote":"","reels":["DLyuRcJOZLF","DDdY6OftxD8","CuqT7J1AHPt"],"ig":"clear lake state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/628","site_rating":null,"price":30.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":39.0150192453,"lon":-122.8092254233,"hrs":3.43,"miles":155,"dyrt":[3.3,7],"dyrt_url":"https://thedyrt.com/camping/california/clear-lake-campground-eaa09074-daf8-4e7c-9467-4c1bb8506c63","photo":"img/clearlake.jpg","photo_credit":"CA State Parks","c":{"avail":39,"reserved":17,"fcfs":0,"closed":74,"nodata":0,"total":130},"live":{"type":"rc","fids":[440,442,443,444]},"access":"drive"},{"k":"sanluis","name":"San Luis Creek Campground","area":"San Luis Reservoir (Los Banos)","view":"lake","good":["Sites next to O'Neill Forebay water.","Only about 1 h 15 min from San Jose.","Good open-sky stars."],"warn":"Can be very windy. Few trees.","gm":[4.2,227],"gmnote":"","reels":[],"ig":"san luis reservoir camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/711","site_rating":null,"price":40.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":false,"water":true,"fire":true},"lat":37.1084119996,"lon":-121.065529,"hrs":1.66,"miles":70,"dyrt":[3.8,4],"dyrt_url":"https://thedyrt.com/camping/california/san-luis-creek-campground","photo":"img/sanluis.jpg","photo_credit":"CA State Parks","c":{"avail":12,"reserved":7,"fcfs":0,"closed":23,"nodata":0,"total":42},"live":{"type":"rc","fids":[672]},"access":"drive"},{"k":"delvalle","name":"Del Valle Family Campground","area":"Livermore","view":"lake","good":["Lake in a valley of oak hills, 45 min from San Jose.","Hot showers and flush toilets.","Hike to Murietta Falls area."],"warn":"Booked through East Bay Regional Parks (not ReserveCalifornia).","gm":[4.5,189],"gmnote":"","reels":[],"ig":"lake del valle camping","src":"East Bay Regional Parks","book":"https://www.ebparks.org/recreation/camping","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":37.56917,"lon":-121.68722,"hrs":1.14,"miles":41,"dyrt":[4.1,25],"dyrt_url":"https://thedyrt.com/camping/california/east-bay-regional-park-district-del-valle-family-campground","photo":"img/delvalle.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":30,"reserved":25,"fcfs":0,"closed":83,"nodata":0,"total":138},"live":{"type":"cf","slug":"del-valle-003"},"access":"drive"},{"k":"glory","name":"Glory Hole Recreation Area","area":"New Melones Lake (Angels Camp)","view":"lake","good":["Many sites look over the lake.","Many open sites for Nov 21.","Gold Rush towns (Murphys, Angels Camp) nearby."],"warn":"Some sites are far from the water. Check the site map.","gm":[4.4,632],"gmnote":"","reels":["C88T3IZJrHC","C02JbAguMVT","CwRkPa3q4QX"],"ig":"new melones lake camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/234073","site_rating":[3.92,504,"Recreation.gov"],"price":18,"cap":8,"amen":{"toilets":true,"flush":true,"vault":true,"showers":true,"water":true,"fire":true},"lat":38.0075,"lon":-120.5402778,"hrs":2.96,"miles":129,"dyrt":[4.0,10],"dyrt_url":"https://thedyrt.com/camping/california/california-gloryhole-recreation-area-ironhorse-campground","photo":"img/glory.jpg","photo_credit":"Recreation.gov","c":{"avail":98,"reserved":13,"fcfs":0,"closed":0,"nodata":8,"total":119},"live":{"type":"recgov","id":234073},"access":"drive"},{"k":"beals","name":"Beals Point (Folsom Lake SRA)","area":"Folsom","view":"lake","good":["Sites near the lake shore with sunset over the water.","Bike trail along the American River.","Hot showers."],"warn":"Lake level is low in fall.","gm":[4.5,806],"gmnote":"","reels":[],"ig":"beals point folsom lake camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/643","site_rating":null,"price":28.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":38.717786,"lon":-121.173749,"hrs":2.93,"miles":136,"dyrt":[4.2,35],"dyrt_url":"https://thedyrt.com/camping/california/california-folsom-lake-state-recreation-area-beals-point-campground","photo":"img/beals.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":7,"reserved":25,"fcfs":0,"closed":17,"nodata":0,"total":49},"live":{"type":"rc","fids":[481,1129]},"access":"drive"},{"k":"brannan","name":"Brannan Island SRA","area":"Rio Vista (Delta)","view":"lake","good":["River delta water views and sunsets.","Many open sites for Nov 21.","About 1 h 30 min from San Jose."],"warn":"Flat delta land. View is water, not mountains.","gm":[4.1,1462],"gmnote":"","reels":[],"ig":"brannan island camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/621","site_rating":null,"price":31.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":38.1081161499023,"lon":-121.69554901123,"hrs":1.64,"miles":73,"dyrt":[3.8,13],"dyrt_url":"https://thedyrt.com/camping/california/california-brannan-island-state-recreation-area","photo":"img/brannan.jpg","photo_credit":"CA State Parks","c":{"avail":52,"reserved":3,"fcfs":0,"closed":46,"nodata":0,"total":101},"live":{"type":"rc","fids":[423,425,428]},"access":"drive"},{"k":"codorniz","name":"Codorniz (Eastman Lake)","area":"Chowchilla","view":"lake","good":["Quiet lake in the Sierra foothills.","Many open sites for Nov 21.","Good night sky."],"warn":"Foothill grass is dry and brown in fall.","gm":[4.5,179],"gmnote":"","reels":[],"ig":"eastman lake camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/233414","site_rating":[4.42,397,"Recreation.gov"],"price":20,"cap":8,"amen":{"toilets":true,"flush":false,"vault":false,"showers":true,"water":true,"fire":true},"lat":37.2158333,"lon":-119.9686111,"hrs":3.15,"miles":137,"dyrt":[4.1,11],"dyrt_url":"https://thedyrt.com/camping/california/california-codorniz-recreation-area-campground","photo":"img/codorniz.jpg","photo_credit":"Recreation.gov","c":{"avail":37,"reserved":25,"fcfs":0,"closed":1,"nodata":0,"total":63},"live":{"type":"recgov","id":233414},"access":"drive"},{"k":"hidden","name":"Hidden View (Hensley Lake)","area":"Madera","view":"lake","good":["Sites on a ridge above the lake.","Many open sites for Nov 21.","Oak trees and granite rocks."],"warn":"About 3 h drive.","gm":[4.3,698],"gmnote":"Google rating is for the recreation area.","reels":[],"ig":"hensley lake camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/233509","site_rating":[4.23,259,"Recreation.gov"],"price":20,"cap":8,"amen":{"toilets":true,"flush":true,"vault":false,"showers":true,"water":true,"fire":true},"lat":37.1247222,"lon":-119.8972222,"hrs":3.1,"miles":139,"dyrt":[4.4,11],"dyrt_url":"https://thedyrt.com/camping/california/hidden-view-hensley-lake","photo":"img/hidden.jpg","photo_credit":"Recreation.gov","c":{"avail":33,"reserved":12,"fcfs":0,"closed":1,"nodata":5,"total":51},"live":{"type":"recgov","id":233509},"access":"drive"},{"k":"island","name":"Island Park (Pine Flat Lake)","area":"Piedra (Fresno County)","view":"lake","good":["Sites on a peninsula in the lake.","Water on many sides.","Open sites for Nov 21."],"warn":"About 3 h drive. Part of the campground is closed.","gm":[4.2,279],"gmnote":"","reels":[],"ig":"pine flat lake camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/233521","site_rating":[3.98,306,"Recreation.gov"],"price":10,"cap":8,"amen":{"toilets":true,"flush":false,"vault":false,"showers":false,"water":true,"fire":true},"lat":36.8646444,"lon":-119.3157278,"hrs":3.96,"miles":184,"dyrt":[3.3,9],"dyrt_url":"https://thedyrt.com/camping/california/california-island-park","photo":"img/island.jpg","photo_credit":"Recreation.gov","c":{"avail":27,"reserved":6,"fcfs":0,"closed":57,"nodata":0,"total":90},"live":{"type":"recgov","id":233521},"access":"drive"},{"k":"horse","name":"Horse Creek (Lake Kaweah)","area":"Three Rivers","view":"lake","good":["Lake with Sierra mountain views.","Near Sequoia National Park entrance.","Many open sites for Nov 21."],"warn":"About 4 h drive.","gm":[4.2,378],"gmnote":"","reels":[],"ig":"lake kaweah camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/233692","site_rating":[3.75,297,"Recreation.gov"],"price":20,"cap":8,"amen":{"toilets":true,"flush":true,"vault":false,"showers":true,"water":true,"fire":true},"lat":36.3905556,"lon":-118.9547222,"hrs":4.29,"miles":214,"dyrt":[3.4,8],"dyrt_url":"https://thedyrt.com/camping/california/california-horse-creek","photo":"img/horse.jpg","photo_credit":"Recreation.gov","c":{"avail":65,"reserved":7,"fcfs":0,"closed":4,"nodata":0,"total":76},"live":{"type":"recgov","id":233692},"access":"drive"},{"k":"loafer","name":"Loafer Creek (Lake Oroville)","area":"Oroville","view":"lake","good":["Oak forest above Lake Oroville.","40 first-come sites in winter.","Hot showers."],"warn":"Winter: first-come only. About 3 h drive.","gm":[4.4,296],"gmnote":"","reels":[],"ig":"lake oroville camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/662","site_rating":null,"price":25.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":39.526574333333336,"lon":-121.444574,"hrs":3.96,"miles":191,"dyrt":[3.5,4],"dyrt_url":"https://thedyrt.com/camping/california/california-loafer-creek-lake-oroville-state-recreation-area","photo":"img/loafer.jpg","photo_credit":"CA State Parks","c":{"avail":0,"reserved":0,"fcfs":40,"closed":73,"nodata":0,"total":113},"live":{"type":"rc","fids":[547,798,799]},"access":"drive"},{"k":"liveoak","name":"Live Oak (Mount Diablo SP)","area":"Danville / Mount Diablo","view":"valley","good":["Next to Rock City sandstone caves.","Drive to the summit for a 360 view of the Bay Area.","Only about 1 h from San Jose."],"warn":"Fires are often not allowed in dry season.","gm":[4.1,77],"gmnote":"","reels":["Cql81vQKmf_","DEnMjrAPGdS","CtbnCQqOuvC"],"ig":"mount diablo camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/683","site_rating":null,"price":30.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":37.853165,"lon":-121.931913,"hrs":1.29,"miles":49,"dyrt":[4.4,17],"dyrt_url":"https://thedyrt.com/camping/california/mt-diablo-state-park","photo":"img/liveoak.jpg","photo_credit":"CA State Parks","c":{"avail":9,"reserved":9,"fcfs":0,"closed":0,"nodata":0,"total":18},"live":{"type":"rc","fids":[585]},"access":"drive"},{"k":"juniper","name":"Juniper (Mount Diablo SP)","area":"Mount Diablo","view":"valley","good":["High on the mountain at 3,000 ft.","Sunset and city lights view over the Bay Area.","Short drive to the summit."],"warn":"Small sites. Can be cold and windy.","gm":[4.6,198],"gmnote":"","reels":["Cql81vQKmf_","DEnMjrAPGdS"],"ig":"mount diablo camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/683","site_rating":null,"price":30.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":37.87858,"lon":-121.93378,"hrs":1.53,"miles":53,"dyrt":[4.0,2],"dyrt_url":"https://thedyrt.com/camping/california/juniper-campground-mount-diablo-state-park","photo":"img/juniper.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":27,"fcfs":0,"closed":0,"nodata":0,"total":27},"live":{"type":"rc","fids":[592]},"access":"drive"},{"k":"arroyo","name":"Arroyo Seco Campground","area":"Greenfield (Los Padres NF)","view":"valley","good":["Above a river gorge with green pools.","Many open sites for Nov 21.","About 1 h 45 min from San Jose."],"warn":"River access trail is steep.","gm":[4.4,443],"gmnote":"","reels":["DPxlQ1mEW3e"],"ig":"arroyo seco campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/231958","site_rating":[3.91,267,"Recreation.gov"],"price":33.97,"cap":8,"amen":{"toilets":true,"flush":false,"vault":true,"showers":true,"water":true,"fire":true},"lat":36.2397222,"lon":-121.4786111,"hrs":2.35,"miles":107,"dyrt":[4.4,14],"dyrt_url":"https://thedyrt.com/camping/california/california-arroyo-seco","photo":"img/arroyo.jpg","photo_credit":"Recreation.gov","c":{"avail":32,"reserved":0,"fcfs":6,"closed":0,"nodata":0,"total":38},"live":{"type":"recgov","id":231958},"access":"drive"},{"k":"upper","name":"Upper Pines (Yosemite Valley)","area":"Yosemite NP","view":"valley","good":["Half Dome and granite walls around you.","Open all year in Yosemite Valley.","Walk to Mirror Lake."],"warn":"Very cold at night in November. Bear lockers required.","gm":[4.5,754],"gmnote":"","reels":[],"ig":"upper pines yosemite camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/232447","site_rating":[4.39,4219,"Recreation.gov"],"price":36,"cap":6,"amen":{"toilets":true,"flush":true,"vault":false,"showers":false,"water":true,"fire":true},"lat":37.7361111,"lon":-119.5625,"hrs":4.51,"miles":181,"dyrt":[4.5,68],"dyrt_url":"https://thedyrt.com/camping/california/california-upper-pines","photo":"img/upper.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":89,"fcfs":0,"closed":146,"nodata":0,"total":235},"live":{"type":"recgov","id":232447},"access":"drive"},{"k":"wawona","name":"Wawona Campground","area":"Yosemite NP (south)","view":"valley","good":["Sites next to the Merced River South Fork.","Near Mariposa Grove of giant sequoias.","1 site open for Nov 21."],"warn":"Cold at night. Bear lockers required.","gm":[4.6,295],"gmnote":"","reels":[],"ig":"wawona campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/232446","site_rating":[4.44,1180,"Recreation.gov"],"price":28,"cap":6,"amen":{"toilets":true,"flush":false,"vault":false,"showers":false,"water":true,"fire":true},"lat":37.5730556,"lon":-119.665,"hrs":4.3,"miles":188,"dyrt":[4.4,42],"dyrt_url":"https://thedyrt.com/camping/california/wawona","photo":"img/wawona.jpg","photo_credit":"Recreation.gov","c":{"avail":1,"reserved":23,"fcfs":0,"closed":73,"nodata":0,"total":97},"live":{"type":"recgov","id":232446},"access":"drive"},{"k":"hodgdon","name":"Hodgdon Meadow","area":"Yosemite NP (Big Oak Flat)","view":"valley","good":["First-come in winter: 100 sites. Arrive early.","Closest Yosemite camp to the Bay Area.","Forest and meadow."],"warn":"No views from sites. Winter: first-come only.","gm":[3.9,365],"gmnote":"","reels":[],"ig":"hodgdon meadow campground","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/232451","site_rating":[3.86,997,"Recreation.gov"],"price":28,"cap":6,"amen":{"toilets":true,"flush":false,"vault":false,"showers":false,"water":true,"fire":true},"lat":37.7988889,"lon":-119.8658333,"hrs":3.6,"miles":156,"dyrt":null,"dyrt_url":null,"photo":"img/hodgdon.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":0,"fcfs":40,"closed":0,"nodata":0,"total":40},"live":{"type":"recgov","id":232451},"access":"drive"},{"k":"pinnacles","name":"Pinnacles Campground","area":"Pinnacles NP (east)","view":"valley","good":["Volcanic rock spires and caves.","Chance to see California condors.","Pool and hot showers."],"warn":"No ocean or lake view.","gm":[4.4,415],"gmnote":"","reels":[],"ig":"pinnacles national park camping","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/234015","site_rating":[4.25,4023,"Recreation.gov"],"price":44,"cap":6,"amen":{"toilets":true,"flush":false,"vault":false,"showers":true,"water":true,"fire":true},"lat":36.4663889,"lon":-121.1761111,"hrs":1.98,"miles":81,"dyrt":[4.1,101],"dyrt_url":"https://thedyrt.com/camping/california/pinnacles-campground-ca","photo":"img/pinnacles.jpg","photo_credit":"Recreation.gov","c":{"avail":1,"reserved":109,"fcfs":0,"closed":0,"nodata":1,"total":111},"live":{"type":"recgov","id":234015},"access":"drive"},{"k":"sugarloaf","name":"Sugarloaf Ridge State Park","area":"Kenwood (Sonoma Valley)","view":"valley","good":["Hike to Bald Mountain for views of the Golden Gate and Sierra.","Observatory in the park.","Near Sonoma wineries."],"warn":"Sites are in a meadow, not on a viewpoint.","gm":[4.8,888],"gmnote":"Google rating is for the whole park.","reels":[],"ig":"sugarloaf ridge camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/725","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":true,"water":true,"fire":true},"lat":38.4359195,"lon":-122.513507,"hrs":2.4,"miles":104,"dyrt":[4.2,33],"dyrt_url":"https://thedyrt.com/camping/california/sugarloaf-ridge-state-park","photo":"img/sugarloaf.jpg","photo_credit":"CA State Parks","c":{"avail":2,"reserved":31,"fcfs":6,"closed":4,"nodata":0,"total":43},"live":{"type":"rc","fids":[731,733]},"access":"drive"},{"k":"coe","name":"Henry W. Coe SP (HQ Campground)","area":"Morgan Hill","view":"valley","good":["Ridge-top sites at 2,600 ft with valley views.","Very dark sky. Only 30 min from San Jose.","Quiet."],"warn":"Pit toilets. Narrow mountain road.","gm":[4.6,811],"gmnote":"Google rating is for the whole park.","reels":[],"ig":"henry coe state park","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/656","site_rating":null,"price":20.0,"cap":8,"amen":{"toilets":true,"flush":null,"vault":null,"showers":false,"water":true,"fire":true},"lat":37.1860631799,"lon":-121.545240886,"hrs":0.94,"miles":34,"dyrt":[3.9,15],"dyrt_url":"https://thedyrt.com/camping/california/henry-w-coe-state-park","photo":"img/coe.jpg","photo_credit":"CA State Parks","c":{"avail":2,"reserved":13,"fcfs":0,"closed":0,"nodata":0,"total":15},"live":{"type":"rc","fids":[506]},"access":"drive"},{"k":"pfeiffer","name":"Pfeiffer Big Sur State Park","area":"Big Sur (central)","view":"forest","good":["The most famous Big Sur campground: redwoods along the Big Sur River.","Walk to Pfeiffer Falls and Valley View trails.","Short drive to Pfeiffer Beach and McWay Falls.","Hot showers and a camp store."],"warn":"Sites are in the forest. There is no ocean view from the sites.","gm":[4.5,181],"gmnote":"","reels":["Da6GlkZy-Cw","DaJC2guhkHT","DNYVUMdxOGx"],"ig":"pfeiffer big sur camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/690","site_rating":null,"price":50.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.242526,"lon":-121.774306,"hrs":2.27,"miles":103,"dyrt":[4.7,74],"dyrt_url":"https://thedyrt.com/camping/california/pfeiffer-big-sur-state-park","photo":"img/pfeiffer.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":140,"fcfs":0,"closed":13,"nodata":0,"total":153},"live":{"type":"rc","fids":[611,612,767]},"access":"drive"},{"k":"molera","name":"Andrew Molera Trail Camp","area":"Big Sur (north)","view":"ocean","good":["Meadow camp 0.3 mi from the parking lot.","Trail to the beach where the Big Sur River meets the ocean.","Bluff Trail has some of the best coast views in Big Sur."],"warn":"Walk-in: carry your gear about 0.3 mi from the car. No showers.","gm":[4.6,948],"gmnote":"","reels":["DYBF0_osd0R","CiS5318pXb6","DaCN1TQJiIc"],"ig":"andrew molera camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/1077","site_rating":null,"price":25,"cap":8,"amen":{"toilets":true,"showers":false,"water":true,"fire":true},"lat":36.2884,"lon":-121.8433,"hrs":2.04,"miles":97,"dyrt":[4.8,8],"dyrt_url":"https://thedyrt.com/camping/california/andrew-molera-state-park-trail-camp","photo":"img/molera.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":0,"fcfs":0,"closed":22,"nodata":0,"total":22},"live":{"type":"rc","fids":[1940]},"access":"walk"},{"k":"steep","name":"Steep Ravine Environmental Sites","area":"Mt. Tamalpais (Stinson Beach)","view":"ocean","good":["Only 7 sites, on a cliff directly above the Pacific.","Famous for sunsets and whale watching.","About 1 h 30 min from San Jose."],"warn":"Short walk from the gated parking area. Books out the minute it opens.","gm":[4.7,174],"gmnote":"","reels":["CwoEMCKv2hR","DJt0Ebto3kq","DVhXc3GAWp6"],"ig":"steep ravine campground","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/682","site_rating":null,"price":25.0,"cap":8,"amen":{"toilets":true,"showers":false,"water":false,"fire":true},"lat":37.8822774305999,"lon":-122.626969272,"hrs":1.75,"miles":71,"dyrt":[4.7,15],"dyrt_url":"https://thedyrt.com/camping/california/california-mount-tamalpais-state-park-rocky-point-steep-ravine-environmental-campground","photo":"img/steep.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":6,"fcfs":0,"closed":0,"nodata":0,"total":6},"live":{"type":"rc","fids":[590]},"access":"walk"},{"k":"ventana","name":"Ventana Campground","area":"Big Sur (central)","view":"forest","good":["Tent sites in a quiet redwood canyon.","Next to the Ventana resort and close to Nepenthe.","Has a separate glamping area. Book a standard tent site."],"warn":"Private campground. Live check is not possible. Check its own booking page.","gm":[4.1,326],"gmnote":"","reels":["DKe61seykxT","DbcZwSHPGxX","DFvgmdyRN7e"],"ig":"ventana campground big sur","src":"Private campground","book":"https://www.ventanacamping.com/","site_rating":null,"price":85.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.229,"lon":-121.764,"hrs":2.22,"miles":103,"dyrt":[3.9,25],"dyrt_url":"https://thedyrt.com/camping/california/ventana-campgrounds","photo":"img/ventana.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"bscc","name":"Big Sur Campground & Cabins","area":"Big Sur (central)","view":"forest","good":["Tent sites on the Big Sur River under redwoods.","Hot showers, camp store and laundry.","Central location for all of Big Sur."],"warn":"Private campground. Live check is not possible. Check its own booking page.","gm":[4.4,683],"gmnote":"","reels":["DI9iNU4zbvG","DK44Rq5JxXE","DdNW0gwJzEy"],"ig":"big sur campground and cabins","src":"Private campground","book":"https://www.bigsurcamp.com/","site_rating":null,"price":80.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.2806,"lon":-121.8356,"hrs":2.05,"miles":97,"dyrt":[4.6,30],"dyrt_url":"https://thedyrt.com/camping/california/big-sur-campground-cabins","photo":"img/bscc.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"riverside","name":"Riverside Campground & Cabins","area":"Big Sur (central)","view":"forest","good":["Riverbank tent sites in the redwoods.","Hot showers.","Quieter than the larger Big Sur camps."],"warn":"Books on Campspot, which blocks outside checks. Check the booking page.","gm":[4.5,290],"gmnote":"","reels":["DXuAmzgiLzn","DW1vgkJCEMf","DdNW0gwJzEy"],"ig":"riverside campground big sur","src":"Private campground","book":"https://www.campspot.com/book/riversidecampground","site_rating":null,"price":75.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.286,"lon":-121.843,"hrs":2.06,"miles":97,"dyrt":[4.0,3],"dyrt_url":"https://thedyrt.com/camping/california/riverside-campground-cabins","photo":"img/riverside.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"fernwood","name":"Fernwood Campground","area":"Big Sur (central)","view":"forest","good":["Redwood tent sites next to a tavern and store.","Live music some nights.","Walk to the Big Sur River."],"warn":"Private campground. Live check is not possible. Check its own booking page.","gm":[4.4,1127],"gmnote":"Google rating is for the Fernwood resort.","reels":[],"ig":"fernwood big sur camping","src":"Private campground","book":"https://fernwoodbigsur.com/","site_rating":null,"price":60.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.2645,"lon":-121.8086,"hrs":2.31,"miles":100,"dyrt":[4.42,19],"dyrt_url":"https://thedyrt.com/camping/california/fernwood-reaort","photo":"img/fernwood.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"vets","name":"Veterans Memorial Park","area":"Monterey","view":"forest","good":["Pine forest campground on a hill above Monterey.","10 min to Cannery Row, the aquarium and 17-Mile Drive.","Hot showers."],"warn":"City campground. Most sites are first-come. Live check is not possible.","gm":[4.4,893],"gmnote":"","reels":["DcO_FliyvE0","DbEwOWThgB7","DPRU5CvEa5z"],"ig":"veterans memorial park monterey camping","src":"City of Monterey","book":"https://monterey.gov/city_hall/parks___recreation/beaches,_parks___playgrounds/parks/veterans_memorial_park_campground.php","site_rating":null,"price":null,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.5966,"lon":-121.9128,"hrs":1.47,"miles":74,"dyrt":[4.3,48],"dyrt_url":"https://thedyrt.com/camping/california/california-veterans-memorial-park","photo":"img/vets.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"lagunaseca","name":"Laguna Seca Recreation Area","area":"Monterey (Salinas Hwy)","view":"valley","good":["Hilltop sites with views over the valley and racetrack.","15 min to Monterey.","Hot showers."],"warn":"County campground. Live check is not possible. Race weekends are loud.","gm":[4.3,245],"gmnote":"","reels":[],"ig":"laguna seca camping","src":"Monterey County Parks","book":"https://www.co.monterey.ca.us/government/departments-a-h/administrative-office/parks/laguna-seca-recreation-area","site_rating":null,"price":null,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":36.5843,"lon":-121.7579,"hrs":1.5,"miles":71,"dyrt":[4.6,29],"dyrt_url":"https://thedyrt.com/camping/california/california-laguna-seca-recreation-area-chaparral","photo":"img/lagunaseca.jpg","photo_credit":"The Dyrt (user photo)","c":null,"live":null,"access":"drive"},{"k":"sptaylor","name":"Samuel P. Taylor State Park","area":"Lagunitas (Marin)","view":"forest","good":["Redwood creek sites 30 min from Point Reyes.","Hot showers.","Bike path along the creek."],"warn":"Forest sites. No ocean view.","gm":[4.7,1437],"gmnote":"Google rating is for the whole park.","reels":["DZoVX82gjgB","DKZ4TuoxKhW","CV_5dO5J7jN"],"ig":"samuel p taylor camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/705","site_rating":null,"price":35.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":38.019703,"lon":-122.735497,"hrs":1.83,"miles":77,"dyrt":[4.3,57],"dyrt_url":"https://thedyrt.com/camping/california/creekside-loop-sites-1-25-samuel-p-taylor-state-park","photo":"img/sptaylor.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":26,"fcfs":22,"closed":2,"nodata":0,"total":50},"live":{"type":"rc","fids":[653,657]},"access":"drive"},{"k":"cowell","name":"Henry Cowell Redwoods State Park","area":"Felton (Santa Cruz)","view":"forest","good":["Sandy pine ridge sites near old-growth redwoods.","Observation deck with a view to Monterey Bay.","About 45 min from San Jose."],"warn":"Forest sites. No ocean view from the sites.","gm":[4.6,421],"gmnote":"","reels":[],"ig":"henry cowell camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/655","site_rating":null,"price":35,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":37.030417,"lon":-122.043021,"hrs":0.78,"miles":31,"dyrt":[4.5,46],"dyrt_url":"https://thedyrt.com/camping/california/henry-cowell-redwoods-state-park","photo":"img/cowell.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":51,"fcfs":0,"closed":48,"nodata":0,"total":99},"live":{"type":"rc","fids":[504,505]},"access":"drive"},{"k":"woodside","name":"Woodside Campground (Salt Point SP)","area":"Sonoma Coast (Jenner)","view":"forest","good":["Forest sites across Hwy 1 from the Salt Point coast.","Walk to tide pools and Gerstle Cove.","Quieter than the coast camps."],"warn":"Forest sites. The ocean is a short walk away.","gm":[4.5,53],"gmnote":"","reels":["DcWRB7RxtCF"],"ig":"salt point state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/703","site_rating":null,"price":35,"cap":8,"amen":{"toilets":true,"showers":false,"water":true,"fire":true},"lat":38.5663458649,"lon":-123.307632328,"hrs":3.21,"miles":141,"dyrt":[4.5,24],"dyrt_url":"https://thedyrt.com/camping/california/california-salt-point-state-park-woodside-campground","photo":"img/woodside.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":0,"reserved":0,"fcfs":0,"closed":70,"nodata":0,"total":70},"live":{"type":"rc","fids":[614,649]},"access":"drive"},{"k":"bicentennial","name":"Bicentennial Campground","area":"Marin Headlands","view":"ocean","good":["Only 3 sites, with Golden Gate and ocean views.","Next to Battery Wallace and Point Bonita.","20 min from San Francisco."],"warn":"Walk about 100 yards from the parking lot. No fires.","gm":[4.5,52],"gmnote":"","reels":[],"ig":"bicentennial campground marin headlands","src":"Recreation.gov","book":"https://www.recreation.gov/camping/campgrounds/272229","site_rating":[4.29,126,"Recreation.gov"],"price":25,"cap":6,"amen":{"toilets":true,"showers":false,"water":true,"fire":false},"lat":37.8308917,"lon":-122.5246639,"hrs":1.4,"miles":58,"dyrt":[3.6,7],"dyrt_url":"https://thedyrt.com/camping/california/california-bicentennial-campground","photo":"img/bicentennial.jpg","photo_credit":"Recreation.gov","c":{"avail":0,"reserved":3,"fcfs":0,"closed":0,"nodata":0,"total":3},"live":{"type":"recgov","id":272229},"access":"walk"},{"k":"chinacamp","name":"China Camp State Park","area":"San Rafael (Marin)","view":"forest","good":["Oak hills above San Pablo Bay.","Walk to the historic China Camp village and beach.","Hot showers."],"warn":"Walk-in sites: park and carry gear a short way.","gm":[4.7,1245],"gmnote":"Google rating is for the whole park.","reels":[],"ig":"china camp state park camping","src":"ReserveCalifornia","book":"https://www.reservecalifornia.com/park/626","site_rating":null,"price":20.0,"cap":8,"amen":{"toilets":true,"showers":true,"water":true,"fire":true},"lat":38.0002,"lon":-122.4932,"hrs":1.52,"miles":67,"dyrt":[4.3,7],"dyrt_url":"https://thedyrt.com/camping/california/china-camp-campground","photo":"img/chinacamp.jpg","photo_credit":"The Dyrt (user photo)","c":{"avail":19,"reserved":10,"fcfs":0,"closed":0,"nodata":0,"total":29},"live":{"type":"rc","fids":[437]},"access":"walk"}],"snapshot_date":"2026-11-21"};
+const items = DATA.items;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const LS = {get(k, d) { try { const v = localStorage.getItem('csf:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('csf:' + k, JSON.stringify(v)); } catch (e) {} },
+  clear() { try { Object.keys(localStorage).filter(k => k.startsWith('csf:')).forEach(k => localStorage.removeItem(k)); } catch (e) {} }};
+const fmtH = h => { if (h == null) return '—'; const m = Math.round(h * 60); return Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm'; };
+const fmtDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'});
+
+/* ---------- topo canvas ---------- */
+(function topo() {
+  const c = $('#topo'), x = c.getContext('2d');
+  function draw() {
+    const w = c.width = c.offsetWidth * devicePixelRatio, h = c.height = c.offsetHeight * devicePixelRatio;
+    x.clearRect(0, 0, w, h); x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = devicePixelRatio;
+    for (let i = 0; i < 26; i++) {
+      x.beginPath();
+      for (let px = 0; px <= w; px += 8) {
+        const y = h * (i / 22) + Math.sin(px / 140 + i * .7) * 18 * devicePixelRatio + Math.sin(px / 53 + i) * 6 * devicePixelRatio;
+        px ? x.lineTo(px, y) : x.moveTo(px, y);
+      }
+      x.stroke();
+    }
+  }
+  draw(); addEventListener('resize', draw);
+})();
+
+/* ---------- state ---------- */
+const DEF = {pct: [0, 100], price: [0, 100], drive: [0, 5], open: [0, 100], gm: [3.5, 5], gmn: [0, 3600],
+  views: ['ocean', 'lake', 'valley', 'forest'], access: ['drive', 'walk'], srcs: [...new Set(items.map(i => i.src))], must: [],
+  q: '', avf: 'any', sort: 'best', show: 'all'};
+let F = Object.assign({}, DEF, LS.get('filters', {}));
+let INT = LS.get('interest', {});            // k -> 'fav' | 'nope'
+let DATE = LS.get('date', null) || DATA.snapshot_date;
+let LIVE = {};                                // k -> counts
+let liveOK = null;                            // null unknown, true, false
+let checkedAt = null;
+const FAILED = new Set();
+const saveF = () => LS.set('filters', F);
+
+/* ---------- live fetchers ---------- */
+const RDR = 'https://california-rdr.prod.cali.rd12.recreation-management.tylerapp.com/rdr/';
+const EXCL = /group|hike|bike|cabin|equest|boat|management|day use|overflow|yurt|lodg/i;
+const blank = () => ({avail: 0, reserved: 0, fcfs: 0, closed: 0, nodata: 0, total: 0});
+async function jget(u, opt, tries = 3) {
+  for (let a = 1; ; a++) {
+    try { const r = await fetch(u, opt); if (r.ok) return r; if (a >= tries || (r.status < 429 && r.status !== 408)) throw new Error('HTTP ' + r.status); }
+    catch (e) { if (a >= tries) throw e; }
+    await new Promise(res => setTimeout(res, 700 * a));
+  }
+}
+async function rcCounts(fids, iso) {
+  const md = iso.slice(5, 7) + '-' + iso.slice(8) + '-' + iso.slice(0, 4), c = blank();
+  for (const fid of fids) {
+    const r = await jget(RDR + 'search/grid', {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({IsADA: false, MinVehicleLength: 0, UnitCategoryId: 0, StartDate: md, WebOnly: true, UnitTypesGroupIds: [], SleepingUnitId: 0, EndDate: md, UnitSort: 'orderby', InSeasonOnly: true, FacilityId: String(fid), RestrictADA: false})});
+    const g = await r.json(), units = (g.Facility && g.Facility.Units) || {};
+    for (const u of Object.values(units)) {
+      c.total++; const s = (u.Slices || {})[iso + 'T00:00:00'];
+      if (!s) c.closed++; else if (s.IsFree) c.avail++; else if (s.IsWalkin) c.fcfs++; else if (s.IsBlocked) c.closed++; else if (s.ReservationId) c.reserved++; else c.closed++;
+    }
+  }
+  return c;
+}
+async function rgCounts(id, iso) {
+  const r = await jget(`https://www.recreation.gov/api/camps/availability/campground/${id}/month?start_date=${iso.slice(0, 7)}-01T00%3A00%3A00.000Z`);
+  const j = await r.json(), c = blank();
+  for (const s of Object.values(j.campsites || {})) {
+    const st = s.availabilities[iso + 'T00:00:00Z'] || 'No data';
+    if (EXCL.test(s.campsite_type || '') || st.includes('Management')) continue;
+    c.total++;
+    if (st === 'Available') c.avail++; else if (st === 'Reserved') c.reserved++; else if (st.startsWith('Not Reservable')) c.fcfs++;
+    else if (st === 'Closed' || st === 'Not Available') c.closed++; else c.nodata++;
+  }
+  return c;
+}
+async function cfCounts(slug, iso) {
+  const h = await (await jget('https://campflare.com/campground/' + slug)).text();
+  const m = h.match(/window\.campsites\s*=\s*(\[[\s\S]*?\]);\s*\n/); const cs = m ? JSON.parse(m[1]) : []; const c = blank();
+  for (const s of cs) {
+    if (EXCL.test((s.kind || '') + ' ' + (s.loop_name || ''))) continue;
+    c.total++; if (!s.av) { c.nodata++; continue; }
+    const [d0, st] = s.av.split(';'); const i = Math.round((Date.parse(iso) - Date.parse(d0)) / 864e5); const ch = st[i];
+    c[{A: 'avail', R: 'reserved', F: 'fcfs', U: 'closed', C: 'closed'}[ch] || 'nodata']++;
+  }
+  return c;
+}
+async function checkOne(it, iso) {
+  const L = it.live; if (!L) return null;
+  if (L.type === 'rc') return rcCounts(L.fids, iso);
+  if (L.type === 'recgov') return rgCounts(L.id, iso);
+  if (L.type === 'cf') return cfCounts(L.slug, iso);
+}
+async function pool(list, n, fn) { let i = 0; await Promise.all(Array.from({length: n}, async () => { while (i < list.length) { const j = i++; await fn(list[j]); } })); }
+
+async function runCheck(force) {
+  const iso = DATE, key = 'live:' + iso, cached = LS.get(key, null);
+  if (!force && cached && Date.now() - cached.t < 15 * 60e3) { LIVE = cached.d; checkedAt = cached.t; liveOK = true; setStatus(); render(); return; }
+  const targets = items.filter(i => i.live);
+  LIVE = {}; FAILED.clear(); let done = 0, fails = 0; setStatus('busy', `Checking ${targets.length} campgrounds… 0/${targets.length}`);
+  await pool(targets, 4, async it => {
+    try { LIVE[it.k] = await checkOne(it, iso); } catch (e) { fails++; LIVE[it.k] = null; FAILED.add(it.k); }
+    done++; setStatus('busy', `Checking ${targets.length} campgrounds… ${done}/${targets.length}`);
+    if (done % 6 === 0) render();
+  });
+  liveOK = fails < targets.length;
+  checkedAt = Date.now();
+  if (liveOK && !fails) LS.set(key, {t: checkedAt, d: LIVE});
+  setStatus(); render();
+}
+function setStatus(mode, msg) {
+  const s = $('#status');
+  s.className = 'status ' + (mode || (liveOK ? 'live' : (liveOK === false ? 'snap' : '')));
+  if (msg) { $('#stxt').textContent = msg; return; }
+  if (liveOK) $('#stxt').textContent = `Live · checked ${new Date(checkedAt).toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})} for ${fmtDate(DATE)}` + (FAILED.size ? ` · ${FAILED.size} failed, press Check again` : '');
+  else if (liveOK === false) $('#stxt').textContent = DATE === DATA.snapshot_date ? `Saved snapshot · ${DATA.checked}` : 'Live check blocked here · no data for this date';
+  const b = $('#banner');
+  b.innerHTML = liveOK === false ? `<div class="banner">This viewer blocks calls to other websites, so live checks do not work here. ${DATE === DATA.snapshot_date ? 'You see the saved snapshot for ' + fmtDate(DATA.snapshot_date) + '.' : 'Pick ' + fmtDate(DATA.snapshot_date) + ' to see the saved snapshot.'} Host this page on GitHub Pages (or open it from a local file server) for live data.</div>` : '';
+}
+function countsFor(it) {
+  if (liveOK && it.k in LIVE) return LIVE[it.k] || null;
+  if (liveOK === false || !liveOK) return DATE === DATA.snapshot_date ? it.c : null;
+  return null;
+}
+
+/* ---------- derived ---------- */
+function derive(it) {
+  const c = countsFor(it);
+  it.cc = c;
+  it.st = !it.live ? 'none' : !c ? 'none' : c.avail > 0 ? 'open' : c.fcfs > 0 ? 'walk' : (c.closed >= c.total ? 'closed' : 'full');
+  it.pctc = c && c.total ? Math.round(1000 * c.avail / c.total) / 10 : null;
+  const VW = {ocean: 3, lake: 2, valley: 1.6, forest: 1.4};
+  it.score = (it.st === 'open' ? 2.5 + Math.min(c.avail, 30) / 20 : it.st === 'walk' ? 1 : 0) + VW[it.view] + (it.gm[0] - 4) * 2.5 - (it.hrs || 4) * 0.45 + (INT[it.k] === 'fav' ? 4 : 0);
+}
+
+/* ---------- map ---------- */
+const map = L.map('map', {scrollWheelZoom: false, minZoom: 5, maxZoom: 13, maxBounds: [[33.6, -126.5], [42.6, -116]]});
+L.tileLayer('tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 8, bounds: [[33.7, -126.4], [42.5, -116.1]]}).addTo(map);
+L.tileLayer('tiles/{z}/{x}/{y}.png', {minZoom: 9, maxNativeZoom: 9, maxZoom: 13, bounds: [[34.95, -124.35], [40.15, -118.35]]}).addTo(map);
+let remoteTiles = null;
+map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
+map.on('focus', () => map.scrollWheelZoom.enable()); map.on('blur', () => map.scrollWheelZoom.disable());
+L.marker([37.3382, -121.8863], {icon: L.divIcon({className: '', html: '<div style="width:13px;height:13px;background:#111;border:2px solid #fff;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.5)"></div>', iconSize: [13, 13]})}).addTo(map).bindTooltip('San Jose (start)');
+const layer = L.layerGroup().addTo(map); const markers = {};
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const stColor = st => cssv({open: '--ok', walk: '--warn', full: '--bad', closed: '--shut', none: '--none'}[st]);
+map.fitBounds(L.latLngBounds(items.map(i => [i.lat, i.lon])).pad(0.04));
+function pin(it) {
+  const n = it.st === 'open' ? it.cc.avail : it.st === 'walk' ? 'W' : it.st === 'full' ? '0' : it.st === 'closed' ? '–' : '?';
+  const s = it.st === 'open' ? 32 : 25;
+  return L.divIcon({className: '', iconSize: [s, s], iconAnchor: [s / 2, s], popupAnchor: [0, -s],
+    html: `<div class="pin${INT[it.k] === 'fav' ? ' fav' : ''}" style="width:${s}px;height:${s}px;background:${stColor(it.st)}"><b>${n}</b></div>`});
+}
+
+/* ---------- cards ---------- */
+const pillTxt = {open: 'Open sites', walk: 'Walk-up only', full: 'Full', closed: 'Closed for season', none: 'No live check'};
+function avLine(it) {
+  const c = it.cc;
+  if (!it.live) return 'Live check not possible';
+  if (!c) return FAILED.has(it.k) ? 'Check failed. Press "Check open sites" again.' : 'Not checked yet for this date';
+  if (it.st === 'open') return `<b>${c.avail}</b> of ${c.total} sites open`;
+  if (it.st === 'walk') return `Full online · <b>${c.fcfs}</b> walk-up sites`;
+  if (it.st === 'closed') return `Closed for the season`;
+  return `Full · 0 of ${c.total} open`;
+}
+function bar(c) {
+  const t = c.total || 1, seg = (v, cls, lab) => v ? `<span class="${cls}" style="width:${100 * v / t}%" title="${lab}: ${v}"></span>` : '';
+  return `<div class="bar" aria-hidden="true">${seg(c.avail, 'b-a', 'Open')}${seg(c.fcfs, 'b-f', 'Walk-up')}${seg(c.reserved, 'b-r', 'Reserved')}${seg(c.closed + c.nodata, 'b-c', 'Closed')}</div>`;
+}
+function card(it) {
+  const c = it.cc, a = it.amen, ii = INT[it.k];
+  if (ii === 'nope' && F.show !== 'hide') return `<div class="mini" id="c-${it.k}"><span>✕ <b>${it.name}</b> · marked not interested</span><button data-int="${it.k}" data-v="clear">Undo</button></div>`;
+  const amen = [['Restroom', a.toilets], ['Showers', a.showers], ['Drinking water', a.water], ['Fire ring', a.fire]].map(([l, v]) => `<span class="${v ? '' : 'no'}">${l}</span>`).join('')
+    + (it.access === 'walk' ? '<span class="walk">Short walk-in</span>' : '<span>Drive-in</span>');
+  const rat = [`<span class="rbox"><span class="st">★</span> <b>${it.gm[0]}</b> Google · ${it.gm[1].toLocaleString()}</span>`];
+  if (it.site_rating && it.site_rating[0]) rat.push(`<span class="rbox"><span class="st">★</span> <b>${(+it.site_rating[0]).toFixed(1)}</b> Recreation.gov · ${it.site_rating[1].toLocaleString()}</span>`);
+  if (it.dyrt) rat.push(`<span class="rbox"><span class="st">★</span> <b>${it.dyrt[0]}</b> The Dyrt · ${it.dyrt[1]}</span>`);
+  const reels = it.reels.map((r, i) => `<a class="ig" href="https://www.instagram.com/p/${r}/" target="_blank" rel="noopener">Reel ${i + 1}</a>`).join('');
+  const gmap = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(it.name + ' ' + it.area)}`;
+  const p = it.pctc == null ? 0 : it.pctc;
+  return `<article class="card${ii === 'fav' ? ' fav' : ''}" id="c-${it.k}">
+   <div class="ph">${it.photo ? `<img loading="lazy" src="${it.photo}" alt="">` : ''}
+     <div class="top"><span class="vb ${it.view}">${{ocean: 'Ocean', lake: 'Lake', valley: 'Valley / mtn', forest: 'Redwoods'}[it.view]}</span>${it.access === 'walk' ? '<span class="tag">Short walk-in</span>' : ''}
+       <div class="acts"><button class="ib love" data-int="${it.k}" data-v="fav" aria-pressed="${ii === 'fav'}" title="Interested" aria-label="Mark ${it.name} as interested">♥</button><button class="ib nope" data-int="${it.k}" data-v="nope" aria-pressed="false" title="Not interested" aria-label="Mark ${it.name} as not interested">✕</button></div></div>
+     <div class="ttl"><h3>${it.name}</h3><div class="ar">${it.area}</div></div>
+     ${it.photo_credit ? `<span class="cr">Photo: ${it.photo_credit}</span>` : ''}</div>
+   <div class="cb">
+    <div class="stats">
+      <div class="ring" style="--p:${p};--c:${stColor(it.st)}"><div><div><b>${it.pctc == null ? '—' : Math.round(p) + '%'}</b><small>open</small></div></div></div>
+      <div class="sline"><div class="h"><span>${avLine(it)}</span><span class="pill p-${it.st}">${pillTxt[it.st]}</span></div>
+        ${c ? bar(c) + `<div class="bk">Open ${c.avail} · Walk-up ${c.fcfs} · Reserved ${c.reserved} · Closed ${c.closed + c.nodata} · Total ${c.total}</div>` : `<div class="bk">${it.live ? 'Press "Check open sites".' : 'Check the booking page for open sites.'}</div>`}</div>
+    </div>
+    <div class="strip">
+      <div><b>${it.price ? '$' + Math.round(it.price) : '—'}</b><span>per night</span></div>
+      <div><b>${fmtH(it.hrs)}</b><span>${it.miles ? it.miles + ' mi' : ''} drive</span></div>
+      <div><b>${it.cap}</b><span>people / site</span></div>
+      <div><b>${it.gm[0]}★</b><span>Google</span></div>
+    </div>
+    <div class="rt">${rat.join('')}</div>
+    ${it.gmnote ? `<div class="bk">${it.gmnote}</div>` : ''}
+    <div class="am">${amen}</div>
+    <ul class="good">${it.good.map(g => `<li>${g}</li>`).join('')}</ul>
+    ${it.warn ? `<div class="warn">${it.warn}</div>` : ''}
+    <div class="lk"><a class="book" href="${it.book}" target="_blank" rel="noopener">Book on ${it.src.replace('Private campground', 'their site')}</a><a href="${gmap}" target="_blank" rel="noopener">Google Maps</a>${it.dyrt_url ? `<a href="${it.dyrt_url}" target="_blank" rel="noopener">The Dyrt</a>` : ''}${reels}<a class="ig" href="https://www.instagram.com/explore/search/keyword/?q=${encodeURIComponent(it.ig)}" target="_blank" rel="noopener">More reels</a><button data-map="${it.k}">Show on map</button></div>
+   </div></article>`;
+}
+
+/* ---------- filters ---------- */
+function pass(it) {
+  const ii = INT[it.k];
+  if (F.show === 'fav' && ii !== 'fav') return false;
+  if (F.show === 'hide' && ii === 'nope') return false;
+  if (!F.views.includes(it.view) || !F.access.includes(it.access) || !F.srcs.includes(it.src)) return false;
+  if (F.q && !(it.name + ' ' + it.area + ' ' + it.view + ' ' + it.good.join(' ')).toLowerCase().includes(F.q.toLowerCase())) return false;
+  if (F.avf === 'open' && it.st !== 'open') return false;
+  if (F.avf === 'walk' && !['open', 'walk'].includes(it.st)) return false;
+  if (F.avf === 'live' && !it.live) return false;
+  const rng = (v, [a, b], dmin, dmax) => (a <= dmin && b >= dmax) || (v != null && v >= a - 1e-9 && v <= b + 1e-9);
+  if (!rng(it.pctc, F.pct, 0, 100)) return false;
+  if (!rng(it.price, F.price, 0, 100)) return false;
+  if (!rng(it.hrs, F.drive, 0, 5) && !(F.drive[1] >= 5 && it.hrs >= F.drive[0])) return false;
+  if (!rng(it.cc ? it.cc.avail : null, F.open, 0, 100) && !(F.open[1] >= 100 && it.cc && it.cc.avail >= F.open[0])) return false;
+  if (!rng(it.gm[0], F.gm, 3.5, 5)) return false;
+  if (!rng(it.gm[1], F.gmn, 0, 3600) && !(F.gmn[1] >= 3600 && it.gm[1] >= F.gmn[0])) return false;
+  for (const m of F.must) { if (m === 'reels' ? !it.reels.length : !it.amen[m]) return false; }
+  return true;
+}
+const sorters = {best: (a, b) => b.score - a.score, avail: (a, b) => ((b.cc && b.cc.avail) ?? -1) - ((a.cc && a.cc.avail) ?? -1),
+  pct: (a, b) => (b.pctc ?? -1) - (a.pctc ?? -1), drive: (a, b) => (a.hrs ?? 9) - (b.hrs ?? 9), price: (a, b) => (a.price || 999) - (b.price || 999),
+  gm: (a, b) => b.gm[0] - a.gm[0] || b.gm[1] - a.gm[1], gmn: (a, b) => b.gm[1] - a.gm[1]};
+function tiles() {
+  const live = items.filter(i => i.live).length;
+  const open = items.filter(i => i.st === 'open'), sites = open.reduce((s, i) => s + i.cc.avail, 0);
+  const fav = Object.values(INT).filter(v => v === 'fav').length;
+  $('#tiles').innerHTML = [[items.length, 'campgrounds'], [live, 'with live check'], [open.length, 'with open sites'], [sites, 'open sites in total'], [fav, 'marked interested']]
+    .map(([b, s]) => `<div class="tile"><b>${b}</b><span>${s}</span></div>`).join('');
+}
+function render() {
+  items.forEach(derive);
+  $('#hdate').textContent = fmtDate(DATE);
+  const list = items.filter(pass).sort(sorters[F.sort]);
+  $('#count').textContent = `${list.length} of ${items.length}`;
+  $('#list').innerHTML = list.length ? list.map(card).join('') : '<div class="empty">No campground matches these filters. Change a filter or press Reset.</div>';
+  layer.clearLayers();
+  list.forEach(it => {
+    if (INT[it.k] === 'nope') return;
+    const m = L.marker([it.lat, it.lon], {icon: pin(it), title: it.name, riseOnHover: true, zIndexOffset: it.st === 'open' ? 500 : 0});
+    m.bindPopup(`<div class="pp">${it.photo ? `<img src="${it.photo}" alt="">` : ''}<b class="n">${it.name}</b><br>${avLine(it)}<br>★ ${it.gm[0]} Google · ${fmtH(it.hrs)} · ${it.price ? '$' + Math.round(it.price) : ''}<br><a href="#c-${it.k}" data-go="${it.k}">Show details</a> · <a href="${it.book}" target="_blank" rel="noopener">Book</a></div>`);
+    markers[it.k] = m; layer.addLayer(m);
+  });
+  tiles(); syncControls();
+}
+map.on('popupopen', e => { const a = e.popup.getElement().querySelector('[data-go]'); if (a) a.onclick = ev => { ev.preventDefault(); const el = document.getElementById('c-' + a.dataset.go); if (el) { $$('.hl').forEach(x => x.classList.remove('hl')); el.classList.add('hl'); el.scrollIntoView({behavior: 'smooth', block: 'center'}); } }; });
+
+/* ---------- controls ---------- */
+const fmt = {pct: v => v + '%', price: v => '$' + v, drive: v => v + 'h', open: v => v, gm: v => (+v).toFixed(1), gmn: v => (+v).toLocaleString()};
+function buildDual(el) {
+  const k = el.dataset.k, mn = +el.dataset.min, mx = +el.dataset.max, st = el.dataset.step;
+  el.innerHTML = `<div class="track"></div><div class="fill"></div><input type="range" min="${mn}" max="${mx}" step="${st}" aria-label="${k} minimum"><input type="range" min="${mn}" max="${mx}" step="${st}" aria-label="${k} maximum">`;
+  const [a, b] = el.querySelectorAll('input');
+  const upd = () => {
+    let lo = +a.value, hi = +b.value; if (lo > hi) [lo, hi] = [hi, lo];
+    F[k] = [lo, hi]; const fill = el.querySelector('.fill');
+    fill.style.left = (100 * (lo - mn) / (mx - mn)) + '%'; fill.style.width = (100 * (hi - lo) / (mx - mn)) + '%';
+    const top = hi >= mx ? '+' : '';
+    $('#v-' + k).textContent = (lo <= mn && hi >= mx) ? 'Any' : `${fmt[k](lo)} – ${fmt[k](hi)}${top}`;
+  };
+  a.addEventListener('input', () => { upd(); saveF(); render(); }); b.addEventListener('input', () => { upd(); saveF(); render(); });
+  el._set = () => { a.value = F[k][0]; b.value = F[k][1]; upd(); };
+  el._set();
+}
+$$('.dual').forEach(buildDual);
+$('#srcopts').innerHTML = DEF.srcs.map(s => `<button class="chip" data-v="${s}" aria-pressed="true">${s}</button>`).join('');
+$$('[data-set]').forEach(g => g.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; const set = g.dataset.set, v = b.dataset.v;
+  F[set] = F[set].includes(v) ? F[set].filter(x => x !== v) : [...F[set], v]; saveF(); render();
+}));
+$$('[data-show]').forEach(b => b.onclick = () => { F.show = b.dataset.show; saveF(); render(); });
+$('#q').addEventListener('input', e => { F.q = e.target.value; saveF(); render(); });
+$('#avf').addEventListener('change', e => { F.avf = e.target.value; saveF(); render(); });
+$('#sort').addEventListener('change', e => { F.sort = e.target.value; saveF(); render(); });
+$('#morebtn').onclick = () => { const o = $('#dock').classList.toggle('open'); $('#morebtn').setAttribute('aria-expanded', o); };
+function syncControls() {
+  $('#q').value = F.q; $('#avf').value = F.avf; $('#sort').value = F.sort;
+  $$('[data-show]').forEach(b => b.setAttribute('aria-pressed', b.dataset.show === F.show));
+  $$('[data-set]').forEach(g => g.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', F[g.dataset.set].includes(b.dataset.v))));
+}
+$('#list').addEventListener('click', e => {
+  const ib = e.target.closest('[data-int]');
+  if (ib) { const k = ib.dataset.int, v = ib.dataset.v; if (v === 'clear' || INT[k] === v) delete INT[k]; else INT[k] = v; LS.set('interest', INT); render(); return; }
+  const mb = e.target.closest('[data-map]');
+  if (mb) { const m = markers[mb.dataset.map]; if (!m) return; $('#map').scrollIntoView({behavior: 'smooth', block: 'center'}); map.setView(m.getLatLng(), 10); setTimeout(() => m.openPopup(), 350); }
+});
+$('#date').value = DATE;
+$('#date').min = new Date().toISOString().slice(0, 10);
+$('#date').addEventListener('change', e => { if (!e.target.value) return; DATE = e.target.value; LS.set('date', DATE); runCheck(false); });
+$('#refresh').onclick = () => runCheck(true);
+$('#reset').onclick = () => {
+  LS.clear(); F = JSON.parse(JSON.stringify(DEF)); INT = {}; DATE = DATA.snapshot_date; $('#date').value = DATE;
+  $$('.dual').forEach(d => d._set()); render(); runCheck(false);
+};
+
+/* ---------- boot: test whether live calls work here ---------- */
+(async () => {
+  render();
+  try {
+    await jget('https://www.recreation.gov/api/camps/availability/campground/233116/month?start_date=' + DATE.slice(0, 7) + '-01T00%3A00%3A00.000Z');
+    liveOK = true;
+    remoteTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {minZoom: 10, maxZoom: 13}).addTo(map);
+    runCheck(false);
+  } catch (e) { liveOK = false; map.setMaxZoom(11); setStatus(); render(); }
+})();
+</script>
+</body>
+</html>
